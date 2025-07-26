@@ -7,13 +7,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Seu CSS permanece igual */
+        /* seu CSS original mantido */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             min-height: 100vh;
             background-color: #0a0a0a;
@@ -21,14 +20,12 @@
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
         }
-
         .container {
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-
         header {
             padding: 12px 20px;
             display: flex;
@@ -42,7 +39,6 @@
             z-index: 1000;
             backdrop-filter: blur(10px);
         }
-
         .logo {
             font-size: 1.1rem;
             font-weight: 700;
@@ -51,13 +47,11 @@
             gap: 4px;
             color: #a855f7;
         }
-
         nav {
             display: flex;
             gap: 12px;
             align-items: center;
         }
-
         nav a {
             color: #d8b4fe;
             text-decoration: none;
@@ -65,11 +59,9 @@
             font-weight: 500;
             font-size: 0.8rem;
         }
-
         nav a:hover {
             color: #a855f7;
         }
-
         .whatsapp-btn {
             background-color: #22c55e;
             color: black;
@@ -86,23 +78,19 @@
             font-size: 0.7rem;
             line-height: 1;
         }
-
         .whatsapp-btn:hover {
             background-color: #16a34a;
             color: black !important;
         }
-
         .whatsapp-btn i {
             width: 12px;
             height: 12px;
         }
-
         main {
             padding: 130px 20px 60px;
             text-align: center;
             background: linear-gradient(135deg, #0f0524 0%, #0a0a0a 100%);
         }
-
         h1 {
             font-size: 2.5rem;
             font-weight: 800;
@@ -114,7 +102,6 @@
             color: transparent;
             letter-spacing: -1px;
         }
-
         .subtitle {
             font-size: 1.1rem;
             color: #e2e8f0;
@@ -124,14 +111,13 @@
             margin-right: auto;
             opacity: 0.9;
         }
-
         .input-group {
             display: flex;
             justify-content: center;
             gap: 8px;
             margin-top: 25px;
+            flex-wrap: wrap;
         }
-
         input[type="email"] {
             width: 280px;
             padding: 9px 15px;
@@ -143,18 +129,15 @@
             transition: all 0.2s ease;
             backdrop-filter: blur(5px);
         }
-
         input[type="email"]:focus {
             outline: none;
             border-color: #e879f9;
             box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.3);
         }
-
         input[type="email"]::placeholder {
             color: #a78bfa;
             opacity: 0.7;
         }
-
         .btn {
             padding: 9px 18px;
             background: linear-gradient(135deg, #7e22ce 0%, #a855f7 100%);
@@ -170,17 +153,14 @@
             box-shadow: 0 2px 4px rgba(126, 34, 206, 0.2);
             font-size: 0.85rem;
         }
-
         .btn:hover {
             background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
             transform: translateY(-1px);
             box-shadow: 0 4px 8px rgba(126, 34, 206, 0.3);
         }
-
         section {
             padding: 60px 20px;
         }
-
         .section-title {
             font-size: 1.8rem;
             font-weight: 700;
@@ -193,7 +173,6 @@
             position: relative;
             display: inline-block;
         }
-
         .section-title::after {
             content: '';
             position: absolute;
@@ -205,7 +184,6 @@
             background: linear-gradient(90deg, #a855f7, #e879f9);
             border-radius: 2px;
         }
-
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -213,7 +191,6 @@
             max-width: 950px;
             margin: 0 auto;
         }
-
         .card {
             background: rgba(26, 0, 46, 0.6);
             border: 1px solid rgba(126, 34, 206, 0.3);
@@ -224,13 +201,11 @@
             backdrop-filter: blur(5px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-
         .card:hover {
             transform: translateY(-5px);
             border-color: #a855f7;
             box-shadow: 0 8px 16px rgba(126, 34, 206, 0.3);
         }
-
         .card-content {
             color: #e9d5ff;
             font-weight: 500;
@@ -242,12 +217,10 @@
             font-size: 0.9rem;
             gap: 8px;
         }
-
         .card-content i {
             width: 22px;
             height: 22px;
         }
-
         .about-text {
             text-align: center;
             color: #d4d4d4;
@@ -257,7 +230,6 @@
             line-height: 1.6;
             opacity: 0.9;
         }
-
         .highlight-btn {
             background: linear-gradient(135deg, #22c55e 0%, #4ade80 100%);
             color: black;
@@ -272,18 +244,15 @@
             box-shadow: 0 2px 5px rgba(34, 197, 94, 0.2);
             font-size: 0.85rem;
         }
-
         .highlight-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 10px rgba(34, 197, 94, 0.3);
             color: black;
         }
-
         .highlight-btn i {
             width: 16px;
             height: 16px;
         }
-
         footer {
             text-align: center;
             padding: 18px;
@@ -292,79 +261,64 @@
             color: #a855f7;
             background-color: #0a0a0a;
         }
-
         @keyframes float {
-            0%,
-            100% {
+            0%, 100% {
                 transform: translateY(0);
             }
             50% {
                 transform: translateY(-5px);
             }
         }
-
         .floating {
             animation: float 6s ease-in-out infinite;
         }
-
         @media (max-width: 1024px) {
             h1 {
                 font-size: 2.1rem;
             }
         }
-
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
                 gap: 12px;
                 padding: 12px;
             }
-
             nav {
                 flex-direction: column;
                 gap: 8px;
                 width: 100%;
             }
-
             nav a {
                 width: 100%;
                 text-align: center;
             }
-
             .whatsapp-btn {
                 width: 100%;
                 justify-content: center;
                 padding: 4px 8px;
             }
-
             main {
                 padding: 90px 20px 40px;
             }
-
             h1 {
                 font-size: 1.7rem;
             }
-
             .subtitle {
                 font-size: 0.9rem;
             }
-
-            input[type='email'] {
+            input[type="email"] {
                 width: 100%;
                 max-width: 260px;
                 padding: 7px 12px;
             }
-
             .btn {
                 width: 100%;
                 max-width: 260px;
                 padding: 7px 14px;
             }
-
             .section-title {
                 font-size: 1.5rem;
             }
-
             .highlight-btn {
                 width: 100%;
                 max-width: 240px;
@@ -403,13 +357,11 @@
                     <span>Começar Agora</span>
                 </button>
             </div>
+            <div id="message" style="margin-top:10px; color:#a855f7;"></div>
         </div>
     </main>
 
-    <section
-        id="features"
-        style="background: radial-gradient(circle at center, #1e1b2e 0%, #0a0a0a 100%)"
-    >
+    <section id="features" style="background: radial-gradient(circle at center, #1e1b2e 0%, #0a0a0a 100%);">
         <div class="container">
             <h2 class="section-title">Recursos Exclusivos</h2>
             <div class="features-grid">
@@ -453,21 +405,14 @@
         </div>
     </section>
 
-    <section
-        id="about"
-        style="background: linear-gradient(180deg, #0f0524 0%, #0a0a0a 100%)"
-    >
+    <section id="about" style="background: linear-gradient(180deg, #0f0524 0%, #0a0a0a 100%);">
         <div class="container">
             <h2 class="section-title">Nossa Tecnologia</h2>
             <p class="about-text">
                 Desenvolvemos soluções de automação inteligente que combinam tecnologia de ponta com estratégias de negócios eficientes. Nossa equipe especializada em IA cria sistemas que automatizam processos e se adaptam dinamicamente às necessidades do seu negócio, garantindo resultados excepcionais.
             </p>
             <div style="text-align: center; margin-top: 25px;">
-                <a
-                    href="https://wa.me/5511941354487"
-                    target="_blank"
-                    class="highlight-btn"
-                >
+                <a href="https://wa.me/5511941354487" target="_blank" class="highlight-btn">
                     <i data-lucide="message-square"></i>
                     <span>FALE CONOSCO</span>
                 </a>
@@ -476,61 +421,64 @@
     </section>
 
     <footer>
-        <div class="container">© 2025 ChatBot Solutions. Todos os direitos reservados.</div>
+        <div class="container">
+            © 2025 ChatBot Solutions. Todos os direitos reservados.
+        </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             lucide.createIcons();
 
-            const emailInput = document.getElementById('email');
-            const submitBtn = document.querySelector('.btn');
-
-            submitBtn.addEventListener('click', function () {
-                const email = emailInput.value.trim();
-
-                if (email && email.includes('@') && email.includes('.')) {
-                    fetch(
-                        'https://script.google.com/macros/s/AKfycbwOHqpayQpl5Xz3D7IS_0ryXZG9mUP9IcI84PIzBogSQz0kqBH-WOa3zKnD85Vw95u3tQ/exec',
-                        {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded',
-                            },
-                            body: new URLSearchParams({
-                                email: email,
-                            }),
-                        }
-                    )
-                        .then((response) => response.text())
-                        .then((text) => {
-                            if (text === 'Success') {
-                                alert(
-                                    'Obrigado pelo seu interesse! Nossa equipe entrará em contato em breve no e-mail: ' +
-                                        email
-                                );
-                                emailInput.value = '';
-                            } else {
-                                alert('Erro ao enviar o email. Tente novamente.');
-                            }
-                        })
-                        .catch((error) => {
-                            console.error('Erro ao enviar email:', error);
-                            alert('Erro na comunicação com o servidor. Tente novamente mais tarde.');
-                        });
-                } else {
-                    alert('Por favor, insira um endereço de e-mail válido');
-                }
-            });
-
-            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            // Scroll suave para âncoras internas
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth',
+                        behavior: 'smooth'
                     });
                 });
             });
+        });
+
+        const emailInput = document.getElementById('email');
+        const submitBtn = document.querySelector('.btn');
+        const messageDiv = document.getElementById('message');
+
+        submitBtn.addEventListener('click', () => {
+            const email = emailInput.value.trim();
+            messageDiv.textContent = '';
+
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                messageDiv.textContent = 'Por favor, insira um e-mail válido';
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Enviando...';
+
+            fetch('https://script.google.com/macros/s/AKfycbwOHqpayQpl5Xz3D7IS_0ryXZG9mUP9IcI84PIzBogSQz0kqBH-WOa3zKnD85Vw95u3tQ/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ email }),
+            })
+                .then(response => response.text())
+                .then(text => {
+                    if (text === 'Success') {
+                        messageDiv.textContent = 'Obrigado! Em breve entraremos em contato.';
+                        emailInput.value = '';
+                    } else {
+                        messageDiv.textContent = 'Erro ao enviar. Tente novamente.';
+                    }
+                })
+                .catch(() => {
+                    messageDiv.textContent = 'Erro na comunicação com o servidor.';
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i data-lucide="send"></i> <span>Começar Agora</span>';
+                    lucide.createIcons(); // atualiza ícones lucide
+                });
         });
     </script>
 </body>
