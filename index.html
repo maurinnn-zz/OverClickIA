@@ -10,7 +10,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       min-height: 100vh;
-      background-color: #0a0a0a;
+      background: radial-gradient(circle at top left, #2a004f, #0a0a0a 80%);
       color: white;
       font-family: 'Inter', sans-serif;
       line-height: 1.6;
@@ -27,7 +27,7 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid rgba(168, 85, 247, 0.2);
-      background-color: rgba(10, 10, 10, 0.9);
+      background-color: rgba(10, 10, 10, 0.95);
       position: fixed;
       width: 100%;
       top: 0;
@@ -35,54 +35,52 @@
       backdrop-filter: blur(10px);
     }
     .logo {
-      font-size: 1.1rem;
+      font-size: 1.3rem;
       font-weight: 700;
       display: flex;
       align-items: center;
       gap: 6px;
-      color: #a855f7;
+      color: white;
     }
     nav {
       display: flex;
-      gap: 12px;
+      gap: 14px;
       align-items: center;
     }
     nav a {
-      color: #d8b4fe;
+      background-color: #1e1e1e;
+      padding: 6px 14px;
+      border-radius: 25px;
+      color: white;
       text-decoration: none;
-      font-weight: 500;
-      font-size: 0.8rem;
+      font-weight: 600;
+      font-size: 0.85rem;
       transition: 0.2s ease;
     }
     nav a:hover {
-      color: #a855f7;
+      background-color: #9333ea;
+      color: white;
     }
     .whatsapp-btn {
       background-color: #22c55e;
       color: black;
-      padding: 3px 10px;
-      border-radius: 50px;
+      padding: 6px 12px;
+      border-radius: 25px;
       font-weight: 600;
-      display: inline-flex;
+      font-size: 0.8rem;
+      text-decoration: none;
+      display: flex;
       align-items: center;
       gap: 6px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      font-size: 0.75rem;
-    }
-    .whatsapp-btn:hover {
-      background-color: #16a34a;
     }
     main {
-      padding: 130px 20px 60px;
+      padding: 140px 20px 60px;
       text-align: center;
-      background: linear-gradient(135deg, #0f0524 0%, #0a0a0a 100%);
     }
     h1 {
-      font-size: 2.8rem;
+      font-size: 2.9rem;
       font-weight: 800;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
       background: linear-gradient(90deg, #a855f7, #e879f9);
       -webkit-background-clip: text;
       background-clip: text;
@@ -91,11 +89,9 @@
     .subtitle {
       font-size: 1.2rem;
       color: #e2e8f0;
-      margin-bottom: 32px;
-      opacity: 0.9;
       max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto 36px;
+      opacity: 0.9;
     }
     .btn {
       padding: 12px 28px;
@@ -104,7 +100,6 @@
       border: none;
       border-radius: 6px;
       font-weight: 600;
-      cursor: pointer;
       font-size: 1rem;
       display: inline-flex;
       align-items: center;
@@ -113,29 +108,16 @@
     }
     .btn:hover {
       background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
-      transform: translateY(-1px);
     }
     .section-title {
       font-size: 1.8rem;
       font-weight: 700;
       text-align: center;
-      margin-top: 60px;
+      margin-top: 70px;
       background: linear-gradient(90deg, #c084fc, #e879f9);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      position: relative;
-    }
-    .section-title::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 45px;
-      height: 2px;
-      background: linear-gradient(90deg, #a855f7, #e879f9);
-      border-radius: 2px;
     }
     .features-grid {
       display: grid;
@@ -150,12 +132,7 @@
       border-radius: 7px;
       padding: 18px;
       text-align: center;
-      transition: all 0.25s ease;
       backdrop-filter: blur(5px);
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: #a855f7;
     }
     .card-content {
       color: #e9d5ff;
@@ -166,9 +143,21 @@
       align-items: center;
       gap: 8px;
     }
-    .card-content i {
-      width: 22px;
-      height: 22px;
+    details {
+      background-color: #1f1f1f;
+      margin: 10px 0;
+      padding: 14px;
+      border-radius: 8px;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .faq-section {
+      max-width: 700px;
+      margin: 60px auto;
+      padding: 20px;
     }
     footer {
       text-align: center;
@@ -176,45 +165,26 @@
       border-top: 1px solid rgba(168, 85, 247, 0.2);
       font-size: 0.75rem;
       color: #a855f7;
-      background-color: #0a0a0a;
-    }
-    @media (max-width: 768px) {
-      h1 { font-size: 2rem; }
-      .subtitle { font-size: 1rem; }
-      .btn { width: 100%; }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="container">
-      <div class="logo">
-        <i data-lucide="bot" class="floating"></i>
-        <span>AutomatizeAI</span>
-      </div>
-      <nav>
-        <a href="#features">Recursos</a>
-        <a href="#about">Tecnologia</a>
-        <a href="https://wa.me/5511941354487" target="_blank" class="whatsapp-btn">
-          <i data-lucide="phone"></i>
-          <span>WhatsApp</span>
-        </a>
-      </nav>
-    </div>
+    <div class="logo">AutomatizeAI</div>
+    <nav>
+      <a href="#inicio">Início</a>
+      <a href="#features">Recursos</a>
+      <a href="#about">Quem somos</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://wa.me/5511941354487" target="_blank" class="whatsapp-btn">WhatsApp</a>
+    </nav>
   </header>
 
-  <main>
+  <main id="inicio">
     <div class="container">
       <h1>Perdendo vendas por não atender seus clientes na hora certa?</h1>
-      <p class="subtitle">
-        Transforme seu atendimento em um serviço que nunca para, pronto para vender a qualquer momento.
-      </p>
-      <div style="margin-bottom: 60px;">
-        <a href="https://wa.me/5511941354487" target="_blank" class="btn">
-          <i data-lucide="message-square"></i>
-          <span>Entre em contato conosco!</span>
-        </a>
-      </div>
+      <p class="subtitle">Transforme seu atendimento em um serviço que nunca para, pronto para vender a qualquer momento.</p>
+      <a href="https://wa.me/5511941354487" target="_blank" class="btn"><i data-lucide="message-square"></i>Entre em contato conosco!</a>
       <h2 class="section-title">Recursos Exclusivos</h2>
     </div>
   </main>
@@ -222,13 +192,29 @@
   <section id="features">
     <div class="container">
       <div class="features-grid">
-        <div class="card"><div class="card-content"><i data-lucide="clock"></i>Automação 24/7 para seu negócio</div></div>
-        <div class="card"><div class="card-content"><i data-lucide="users"></i>Captação e qualificação de leads inteligente</div></div>
-        <div class="card"><div class="card-content"><i data-lucide="share-2"></i>Integração com WhatsApp, Instagram e Facebook</div></div>
-        <div class="card"><div class="card-content"><i data-lucide="brain"></i>IA personalizada para seu negócio</div></div>
-        <div class="card"><div class="card-content"><i data-lucide="refresh-cw"></i>Gestão automatizada de relacionamento</div></div>
-        <div class="card"><div class="card-content"><i data-lucide="bar-chart-2"></i>Análises preditivas e relatórios</div></div>
+        <div class="card"><div class="card-content"><i data-lucide="clock"></i>Atendimento 24h</div></div>
+        <div class="card"><div class="card-content"><i data-lucide="users"></i>Captação Inteligente</div></div>
+        <div class="card"><div class="card-content"><i data-lucide="share-2"></i>Integração com redes</div></div>
       </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <h2 class="section-title">Quem somos?</h2>
+      <p class="subtitle">Somos especialistas em criar automações humanizadas com ManyChat, otimizando seu atendimento sem perder o toque humano.</p>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="container faq-section">
+      <h2 class="section-title">❓ FAQ - Perguntas Frequentes</h2>
+      <details><summary>Meu cliente não gosta de falar com robô. Vai dar certo?</summary><p>Sim! Nosso sistema usa IA humanizada, que conversa de forma natural e personalizada.</p></details>
+      <details><summary>E se a IA responder errado?</summary><p>Nós configuramos o bot com informações do seu negócio e você pode atualizar tudo facilmente.</p></details>
+      <details><summary>É difícil de instalar ou usar?</summary><p>Nossa equipe configura tudo para você. Em menos de 24h seu atendimento já estará funcionando.</p></details>
+      <details><summary>E se eu não gostar ou não funcionar para mim?</summary><p>Você pode testar sem risco. Continue apenas se enxergar resultados reais.</p></details>
+      <details><summary>Isso não é caro para minha empresa?</summary><p>Com apenas uma venda extra o serviço já se paga. É um investimento, não um custo.</p></details>
+      <details><summary>O bot substitui meus funcionários?</summary><p>Não. Ele complementa sua equipe, cuidando das mensagens repetitivas e fora do horário.</p></details>
     </div>
   </section>
 
@@ -241,14 +227,6 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       lucide.createIcons();
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-          });
-        });
-      });
     });
   </script>
 </body>
