@@ -1,509 +1,1008 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AutomatizeAI - Soluções em Automação Inteligente</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      min-height: 100vh;
-      color: white;
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      position: relative;
-      overflow-x: hidden;
-      background: #0a0a0a;
-    }
-    /* Fundo Gradiente + Partículas */
-    .background-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 20% 30%, #2a004f 0%, #0a0a0a 70%);
-      z-index: -2;
-    }
-    .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.2;
-    }
-    .particles::before {
-      content: "";
-      position: absolute;
-      width: 300%;
-      height: 300%;
-      top: -100%;
-      left: -100%;
-      background-image: 
-        radial-gradient(circle, #a855f7 1px, transparent 1px),
-        radial-gradient(circle, #e879f9 1px, transparent 1px);
-      background-size: 40px 40px;
-      animation: float 20s infinite linear;
-    }
-    @keyframes float {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(50px, 50px); }
-    }
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-    header {
-      padding: 16px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: rgba(10, 10, 10, 0.8);
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(168, 85, 247, 0.2);
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: white;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    nav {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
-    nav a {
-      background-color: rgba(30, 30, 30, 0.8);
-      padding: 8px 18px;
-      border-radius: 50px;
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(168, 85, 247, 0.3);
-    }
-    nav a:hover {
-      background-color: #9333ea;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(147, 51, 234, 0.4);
-    }
-    .whatsapp-btn {
-      background-color: #22c55e;
-      color: black;
-      padding: 8px 18px;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.3s ease;
-    }
-    .whatsapp-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(34, 197, 94, 0.4);
-    }
-    /* SEÇÃO INICIAL FLUTUANTE */
-    main {
-      padding: 180px 20px 80px;
-      text-align: center;
-    }
-    .hero-container {
-      background: rgba(20, 0, 40, 0.7);
-      border: 1px solid rgba(168, 85, 247, 0.4);
-      border-radius: 30px;
-      padding: 60px 40px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 20px 50px rgba(42, 0, 79, 0.4);
-      max-width: 900px;
-      margin: 0 auto;
-      transition: all 0.5s ease;
-      animation: float-section 6s ease-in-out infinite;
-    }
-    @keyframes float-section {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
-    h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      margin-bottom: 24px;
-      background: linear-gradient(90deg, #a855f7, #e879f9);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      line-height: 1.2;
-    }
-    .subtitle {
-      font-size: 1.4rem;
-      color: #e2e8f0;
-      max-width: 700px;
-      margin: 0 auto 40px;
-      opacity: 0.9;
-    }
-    .btn {
-      padding: 16px 36px;
-      background: linear-gradient(135deg, #7e22ce 0%, #a855f7 100%);
-      color: white;
-      border: none;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 1.1rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 5px 20px rgba(126, 34, 206, 0.5);
-    }
-    .btn:hover {
-      background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(147, 51, 234, 0.6);
-    }
-    .section-title {
-      font-size: 2.5rem;
-      font-weight: 700;
-      text-align: center;
-      margin: 100px 0 50px;
-      background: linear-gradient(90deg, #c084fc, #e879f9);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
-      max-width: 1000px;
-      margin: 50px auto;
-    }
-    .card {
-      background: rgba(20, 0, 40, 0.7);
-      border: 1px solid rgba(168, 85, 247, 0.4);
-      border-radius: 20px;
-      padding: 30px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-      transition: all 0.4s ease;
-      box-shadow: 0 10px 30px rgba(42, 0, 79, 0.3);
-    }
-    .card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 15px 40px rgba(126, 34, 206, 0.4);
-      border-color: rgba(232, 121, 249, 0.6);
-    }
-    .card-content {
-      color: #e9d5ff;
-      font-weight: 500;
-      font-size: 1.1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-    }
-    .card-content i {
-      font-size: 2.5rem;
-      margin-bottom: 16px;
-      color: #c084fc;
-    }
-    .card-content h3 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      color: white;
-    }
-    /* Formulário de Solicitação */
-    .request-form {
-      background: rgba(20, 0, 40, 0.7);
-      border: 1px solid rgba(168, 85, 247, 0.4);
-      border-radius: 20px;
-      padding: 40px;
-      max-width: 600px;
-      margin: 50px auto;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 15px 40px rgba(42, 0, 79, 0.3);
-    }
-    .form-group {
-      margin-bottom: 20px;
-      text-align: left;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 8px;
-      color: #e9d5ff;
-      font-weight: 500;
-    }
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 12px 16px;
-      background: rgba(30, 30, 30, 0.8);
-      border: 1px solid rgba(168, 85, 247, 0.3);
-      border-radius: 10px;
-      color: white;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-    }
-    .form-group input:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: #a855f7;
-    }
-    .form-submit {
-      width: 100%;
-      padding: 16px;
-      margin-top: 20px;
-    }
-    /* FAQ */
-    .faq-section {
-      max-width: 800px;
-      margin: 80px auto;
-      padding: 20px;
-    }
-    details {
-      background: rgba(20, 0, 40, 0.7);
-      border: 1px solid rgba(168, 85, 247, 0.4);
-      border-radius: 15px;
-      margin: 15px 0;
-      padding: 20px;
-      backdrop-filter: blur(5px);
-      transition: all 0.3s ease;
-    }
-    details:hover {
-      border-color: rgba(232, 121, 249, 0.6);
-    }
-    summary {
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 1.2rem;
-      color: #e9d5ff;
-      list-style: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    summary::after {
-      content: '+';
-      font-size: 1.8rem;
-      color: #a855f7;
-      transition: transform 0.3s ease;
-    }
-    details[open] summary::after {
-      content: '-';
-    }
-    details p {
-      margin-top: 15px;
-      color: #d8b4fe;
-      font-size: 1rem;
-      line-height: 1.7;
-    }
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      border-top: 1px solid rgba(168, 85, 247, 0.2);
-      font-size: 0.9rem;
-      color: #a855f7;
-      margin-top: 100px;
-      background: rgba(10, 10, 10, 0.8);
-    }
-    /* Responsivo */
-    @media (max-width: 768px) {
-      h1 { font-size: 2.5rem; }
-      .hero-container {
-        padding: 40px 20px;
-        border-radius: 20px;
-      }
-      .section-title { font-size: 2rem; }
-      .subtitle { font-size: 1.2rem; }
-      .card { padding: 20px; }
-      .request-form { padding: 30px 20px; }
-      nav { gap: 10px; }
-      nav a { padding: 6px 12px; font-size: 0.8rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OverClick - Atendimento Automatizado 24/7</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6C63FF;
+            --secondary: #4D44DB;
+            --dark: #1A1A1A;
+            --light: #F8F9FA;
+            --success: #28A745;
+            --warning: #FFC107;
+            --danger: #DC3545;
+            --gray: #6C757D;
+            --light-gray: #E9ECEF;
+            --bg-color: #121212;
+            --text-color: #F8F9FA;
+            --header-bg: rgba(34, 34, 34, 0.9);
+            --card-bg: #1E1E1E;
+            --section-bg: #1A1A1A;
+            --hero-opacity: 0.15;
+        }
+
+        .light-mode {
+            --dark: #2A2A3C;
+            --light: #F8F9FA;
+            --bg-color: #F5F5F5;
+            --text-color: #2A2A3C;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --card-bg: #FFFFFF;
+            --section-bg: #F0F0F0;
+            --light-gray: #E9ECEF;
+            --hero-opacity: 0.25;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--header-bg);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: 20px;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        /* Hero Section - Modificada */
+        .hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(135deg, var(--section-bg) 0%, var(--header-bg) 100%);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: var(--hero-opacity);
+            z-index: 0;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-content {
+            flex: 1.2;
+            padding-right: 20px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 24px;
+            color: var(--gray);
+            margin-bottom: 50px;
+            font-weight: 400;
+        }
+
+        .hero-chat {
+            flex: 1;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 20px;
+        }
+
+        .chat-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .chat-header h4 {
+            font-size: 16px;
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+        }
+
+        .message-bot {
+            justify-content: flex-start;
+        }
+
+        .message-user {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+        }
+
+        .message-bot .message-content {
+            background-color: var(--section-bg);
+            border: 1px solid var(--light-gray);
+            border-bottom-left-radius: 5px;
+        }
+
+        .message-user .message-content {
+            background-color: var(--primary);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 100px 0;
+            background-color: var(--bg-color);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .problem-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .problem-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .problem-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .problem-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            padding: 100px 0;
+            background-color: var(--section-bg);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .solution-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .solution-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .solution-icon {
+            font-size: 50px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .solution-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .solution-card p {
+            color: var(--gray);
+        }
+
+        /* Demo Section - Atualizada */
+        .demo-section {
+            padding: 100px 0;
+            background-color: var(--bg-color);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .demo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .demo-text {
+            width: 100%;
+        }
+
+        .demo-text h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: var(--text-color);
+        }
+
+        .demo-text ul {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .demo-text li {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .demo-text li i {
+            color: var(--success);
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .demo-text li strong {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .demo-text li p {
+            color: var(--gray);
+        }
+
+        .demo-text > p {
+            font-size: 18px;
+            margin-top: 30px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .cta-section .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        .cta-button.light {
+            background-color: var(--header-bg);
+            color: var(--primary);
+            padding: 15px 30px;
+            font-size: 18px;
+        }
+
+        .cta-button.light:hover {
+            background-color: var(--light-gray);
+            color: var(--secondary);
+        }
+
+        /* Cadastro Section */
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            background-color: var(--card-bg);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        form input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 5px;
+            border: 1px solid var(--light-gray);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #B0B0B0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #B0B0B0;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero .container {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 48px;
+            }
+            
+            .hero-chat {
+                max-width: 100%;
+                width: 100%;
+                margin-top: 40px;
+            }
+
+            .hero-content {
+                padding-right: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 150px 0 80px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 20px;
+            }
+
+            .section-title h2 {
+                font-size: 30px;
+            }
+
+            .cta-button {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+
+            .demo-text h2 {
+                font-size: 30px;
+            }
+
+            .problem-section,
+            .solution-section,
+            .demo-section {
+                padding: 80px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .demo-text li {
+                margin-bottom: 20px;
+            }
+
+            .demo-text li strong {
+                font-size: 18px;
+            }
+
+            form {
+                padding: 25px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Fundo Personalizado -->
-  <div class="background-overlay"></div>
-  <div class="particles"></div>
-
-  <header>
-    <div class="logo">AutomatizeAI</div>
-    <nav>
-      <a href="#inicio">Início</a>
-      <a href="#features">Recursos</a>
-      <a href="#about">Quem somos</a>
-      <a href="#faq">FAQ</a>
-      <a href="https://wa.me/5511941354487" target="_blank" class="whatsapp-btn"><i data-lucide="message-circle"></i>WhatsApp</a>
-    </nav>
-  </header>
-
-  <main id="inicio">
-    <div class="container">
-      <div class="hero-container">
-        <h1>Perdendo vendas por não atender seus clientes na hora certa?</h1>
-        <p class="subtitle">Transforme seu atendimento em um serviço que nunca para, pronto para vender a qualquer momento com nossa automação humanizada.</p>
-        <a href="#request-info" class="btn"><i data-lucide="message-square"></i>Solicitar informações</a>
-      </div>
-    </div>
-  </main>
-
-  <section id="features">
-    <div class="container">
-      <h2 class="section-title">Recursos Exclusivos</h2>
-      <div class="features-grid">
-        <div class="card">
-          <div class="card-content">
-            <i data-lucide="clock"></i>
-            <h3>Atendimento 24h</h3>
-            <p>Nunca perca uma venda fora do horário comercial. Nosso bot está sempre disponível.</p>
-          </div>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">OverClick</div>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#suporte">Suporte</a></li>
+                    <li><a href="#sobre">Sobre nós</a></li>
+                    <li><a href="#cadastro">Cadastro</a></li>
+                </ul>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Overclick" class="cta-button">Falar com especialistas</a>
+            </nav>
         </div>
-        <div class="card">
-          <div class="card-content">
-            <i data-lucide="users"></i>
-            <h3>Captação Inteligente</h3>
-            <p>Identifica leads qualificados e os encaminha para sua equipe no momento certo.</p>
-          </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Perdendo vendas por não atender na hora certa?</h1>
+                <p>Transforme seu atendimento em um serviço que nunca para, pronto pra vender a qualquer momento.</p>
+                <a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20OverClick" class="cta-button">Entre em contato conosco</a>
+            </div>
+            
+            <div class="hero-chat">
+                <div class="chat-header">
+                    <div class="chat-avatar">O</div>
+                    <h4>OverClick Assistente</h4>
+                </div>
+                
+                <div class="chat-messages">
+                    <div class="message message-bot">
+                        <div class="message-content">
+                            <strong>Olá!</strong><br>
+                            Boa tarde.
+                        </div>
+                    </div>
+                    
+                    <div class="message message-bot">
+                        <div class="message-content">
+                            Olá! Sou seu assistente de compras. Em que posso ajudar hoje?
+                        </div>
+                    </div>
+                    
+                    <div class="message message-user">
+                        <div class="message-content">
+                            Olá! Gosto de ler livros, mas estou gastando muito.
+                        </div>
+                    </div>
+                    
+                    <div class="message message-bot">
+                        <div class="message-content">
+                            Certo! Temos de opção o kindle, onde por um só valor mensal, você possui livros para sempre!
+                        </div>
+                    </div>
+                    
+                    <div class="message message-bot">
+                        <div class="message-content">
+                            Possuimos várias opções, qual seu orçamento para investimento na sua leitura?
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card">
-          <div class="card-content">
-            <i data-lucide="share-2"></i>
-            <h3>Integração Total</h3>
-            <p>Conectado com WhatsApp, Instagram e seu CRM favorito em um só lugar.</p>
-          </div>
+    </section>
+
+    <section class="problem-section" id="servicos">
+        <div class="container">
+            <div class="section-title">
+                <h2>Isso acontece com você? Então esta IA é pra você!</h2>
+                <p>Na Overclick, entendemos que atender clientes vai muito além de apenas responder mensagens. É sobre ter estratégias de venda, suporte e tecnologia que realmente funcionam para não perder vendas.</p>
+            </div>
+            
+            <div class="problem-cards">
+                <div class="problem-card">
+                    <h3>Perde vendas fora do horário comercial?</h3>
+                    <p>A chance do cliente desistir ou procurar o concorrente aumenta porque está limitado pelo horário.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <h3>Precisa de mais gente, mas não tem orçamento?</h3>
+                    <p>Uma automação bem feita economiza até 80% comparado a um funcionário, além de atender 24h por dia.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <h3>Atendimento aparenta "menos" profissional?</h3>
+                    <p>Se sua empresa não atende bem e/ou atrasa agendamento, o cliente imagina que o resto também falha.</p>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="about">
-    <div class="container">
-      <h2 class="section-title">Quem somos?</h2>
-      <p class="subtitle">Somos especialistas em criar automações humanizadas com ManyChat, otimizando seu atendimento sem perder o toque humano. Combinamos tecnologia avançada com estratégias de vendas comprovadas para transformar seu negócio.</p>
-    </div>
-  </section>
+    <section class="solution-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Diga adeus às respostas lentas, agenda desorganizada e equipe sobrecarregada</h2>
+            </div>
+            
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Atendimento rápido</h3>
+                    <p>O Agente responde mesmo fora do horário comercial, sem dias e horários de descanso.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Redução de custos</h3>
+                    <p>Gaste até 80% menos que com um funcionário CLT.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Respostas naturais</h3>
+                    <p>Nada de mensagens robóticas. A IA conversa como um humano de verdade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="request-info" class="container">
-    <h2 class="section-title">Solicite Informações</h2>
-    <form class="request-form">
-      <div class="form-group">
-        <label for="name">Nome</label>
-        <input type="text" id="name" name="name" required>
-      </div>
-      <div class="form-group">
-        <label for="company">Empresa</label>
-        <input type="text" id="company" name="company" required>
-      </div>
-      <div class="form-group">
-        <label for="segment">Segmento</label>
-        <input type="text" id="segment" name="segment" placeholder="Digite seu segmento" required>
-      </div>
-      <div class="form-group">
-        <label for="attendants">Número de atendentes atuais</label>
-        <input type="number" id="attendants" name="attendants" min="1" required>
-      </div>
-      <button type="submit" class="btn form-submit"><i data-lucide="send"></i>Enviar solicitação</button>
-    </form>
-  </section>
+    <section class="demo-section">
+        <div class="container">
+            <div class="demo-container">
+                <div class="demo-text">
+                    <h2>Seu cliente atendido em segundos</h2>
+                    
+                    <ul>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <strong>Linguagem natural</strong>
+                            <p>Conversa fluida como se fosse um atendente humano</p>
+                        </li>
+                        
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <strong>Disponível 24 horas por dia</strong>
+                            <p>Nunca perca uma venda por estar fora do horário</p>
+                        </li>
+                        
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <strong>Diálogos exclusivos e personalizados</strong>
+                            <p>Cada cliente recebe atendimento único</p>
+                        </li>
+                        
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <strong>Agendas geradas automaticamente</strong>
+                            <p>Organização perfeita sem esforço</p>
+                        </li>
+                    </ul>
+                    
+                    <p><strong>Empresas que automatizam o atendimento aumentam vendas em até 40%.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="faq">
-    <div class="container faq-section">
-      <h2 class="section-title">❓ Perguntas Frequentes</h2>
-      <details>
-        <summary>Meu cliente não gosta de falar com robô. Vai dar certo?</summary>
-        <p>Sim! Nosso sistema usa IA humanizada, que conversa de forma natural e personalizada. 87% dos clientes não percebem que estão falando com automação.</p>
-      </details>
-      <details>
-        <summary>E se a IA responder errado?</summary>
-        <p>Nós configuramos o bot com informações do seu negócio e você pode atualizar tudo facilmente. Além disso, temos revisão humana periódica.</p>
-      </details>
-      <details>
-        <summary>É difícil de instalar ou usar?</summary>
-        <p>Nossa equipe configura tudo para você. Em menos de 24h seu atendimento já estará funcionando. Sem necessidade de conhecimento técnico.</p>
-      </details>
-      <details>
-        <summary>E se eu não gostar ou não funcionar para mim?</summary>
-        <p>Você pode testar sem risco. Continue apenas se enxergar resultados reais. Garantia de satisfação ou devolução em 7 dias.</p>
-      </details>
-      <details>
-        <summary>Isso não é caro para minha empresa?</summary>
-        <p>Com apenas uma venda extra o serviço já se paga. É um investimento, não um custo. Planos a partir de R$199/mês.</p>
-      </details>
-      <details>
-        <summary>O bot substitui meus funcionários?</summary>
-        <p>Não. Ele complementa sua equipe, cuidando das mensagens repetitivas e fora do horário, permitindo que seu time foque no que realmente importa.</p>
-      </details>
-    </div>
-  </section>
+    <section class="problem-section" id="cadastro">
+        <div class="container">
+            <div class="section-title">
+                <h2>Automatize de uma vez!</h2>
+                <p>Preencha as informações abaixo para que possamos entender melhor seu perfil.</p>
+            </div>
 
-  <footer>
-    <div class="container">
-      © 2025 AutomatizeAI. Todos os direitos reservados.
-    </div>
-  </footer>
+            <form id="cadastroForm">
+                <div>
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" required>
+                </div>
+                <div>
+                    <label for="empresa">Empresa</label>
+                    <input type="text" id="empresa" name="empresa">
+                </div>
+                <div>
+                    <label for="segmento">Segmento (ex: loja, clínica, etc.)</label>
+                    <input type="text" id="segmento" name="segmento">
+                </div>
+            
+                <button type="submit" class="cta-button">Enviar</button>
+            </form>
+        </div>
+    </section>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      lucide.createIcons();
-      
-      // Suaviza o scroll para links internos
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-          });
+    <section class="cta-section" id="contato">
+        <div class="container">
+            <h2>Pronto para transformar seu atendimento?</h2>
+            <p>Nossa equipe está pronta para te mostrar como a Overclick pode impulsionar suas vendas e melhorar a experiência dos seus clientes.</p>
+            <a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20garantir%20minha%20vaga%20na%20Overclick" class="cta-button light">Quero garantir minha vaga</a>
+        </div>
+    </section>
+
+    <section class="problem-section" id="sobre">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sobre nós</h2>
+                <p>Somos especialistas em automação de atendimento utilizando inteligência artificial. Na Overclick, ajudamos empresas a escalarem seu suporte e vendas com soluções modernas, inteligentes e humanizadas.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Overclick</h3>
+                    <p>Soluções de atendimento automatizado com IA para impulsionar suas vendas 24 horas por dia.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/5511941354487"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#servicos">Serviços</a></li>
+                        <li><a href="#suporte">Suporte</a></li>
+                        <li><a href="#sobre">Sobre nós</a></li>
+                        <li><a href="#cadastro">Cadastro</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Serviços</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Atendimento 24/7</a></li>
+                        <li><a href="#">Chatbot Inteligente</a></li>
+                        <li><a href="#">Agendamento Automático</a></li>
+                        <li><a href="#">Análise de Conversas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:contato@overclick.com">contato@overclick.com</a></li>
+                        <li><a href="tel:+5511941354487">(11) 94135-4487</a></li>
+                        <li><a href="https://wa.me/5511941354487">WhatsApp</a></li>
+                        <li><a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20agendar%20uma%20demonstração">Agende uma demonstração</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Overclick. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        
+        // Check for saved theme preference or use preferred color scheme
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
+            body.classList.add('light-mode');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        } else {
+            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            
+            if (body.classList.contains('light-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('theme', 'dark');
+            }
         });
-      });
-
-      // Form submission
-      const form = document.querySelector('.request-form');
-      // Form submission
-      const form = document.querySelector('.request-form');
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        const data = {
-          name: form.name.value,
-          company: form.company.value,
-          segment: form.segment.value,
-          attendants: form.attendants.value
-        };
-
-        fetch("https://script.google.com/macros/s/AKfycbwoFUcWoEh2-_k-ADCIn6zUqDwp1UC33Z2aV131HRg_aSTbjsedyM9FmyI3hKZfLLI0oA/exec", {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: { "Content-Type": "application/json" }
-        })
-        .then(response => response.json())
-        .then(result => {
-          alert("Solicitação enviada com sucesso!");
-          form.reset();
-        })
-        .catch(error => {
-          alert("Erro ao enviar. Tente novamente.");
-          console.error(error);
+        
+        // Simple script for smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
-      });
-    });
-  </script>
+        
+        // Demo chat animation
+        const messages = document.querySelectorAll('.message');
+        messages.forEach((msg, index) => {
+            msg.style.opacity = '0';
+            msg.style.transform = 'translateY(20px)';
+            msg.style.transition = 'all 0.5s ease ' + (index * 0.3) + 's';
+            
+            setTimeout(() => {
+                msg.style.opacity = '1';
+                msg.style.transform = 'translateY(0)';
+            }, 100 + (index * 300));
+        });
+
+        // Form submission handler (versão atualizada)
+        const form = document.getElementById('cadastroForm');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Impede o recarregamento da página
+
+            // URL do seu script do Google Sheets
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbx5Sdri3bZfbknLdA3tkXTnPJgWoOc5Ud-WDkxmQQHoko0wgHgTUS2O7Avl7NT257RjEA/exec';
+
+            const submitButton = form.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Enviando...';
+            submitButton.disabled = true;
+
+            fetch(scriptURL, { 
+                method: 'POST', 
+                body: new FormData(form) // Envia os dados do formulário
+            })
+            .then(response => {
+                console.log('Success!', response);
+                alert("Cadastro enviado com sucesso!");
+                form.reset(); // Limpa o formulário
+            })
+            .catch(error => {
+                console.error('Error!', error.message);
+                alert("Ocorreu um erro ao enviar o cadastro. Tente novamente.");
+            })
+            .finally(() => {
+                // Reabilita o botão após o envio
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+            });
+        });
+    </script>
 </body>
 </html>
