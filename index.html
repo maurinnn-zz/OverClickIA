@@ -4,34 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OverClick - Atendimento Automatizado 24/7</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Pré-carregamento de recursos críticos -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    
+    <!-- CSS Otimizado -->
     <style>
+        /* CSS Crítico - Carrega primeiro */
         :root {
             --primary: #6C63FF;
             --secondary: #4D44DB;
-            --dark: #1A1A1A;
+            --accent: #FF6B6B;
+            --accent-light: #FF9E9E;
+            --dark: #0F0F1A;
             --light: #F8F9FA;
             --success: #28A745;
             --warning: #FFC107;
             --danger: #DC3545;
-            --gray: #6C757D;
+            --gray: #8A8FA3;
             --light-gray: #E9ECEF;
-            --bg-color: #121212;
+            --bg-color: #0F0F1A;
             --text-color: #F8F9FA;
-            --header-bg: rgba(34, 34, 34, 0.9);
-            --card-bg: #1E1E1E;
-            --section-bg: #1A1A1A;
+            --header-bg: rgba(20, 20, 35, 0.95);
+            --card-bg: #1A1A2E;
+            --section-bg: #161627;
             --hero-opacity: 0.15;
         }
 
         .light-mode {
             --dark: #2A2A3C;
             --light: #F8F9FA;
-            --bg-color: #F5F5F5;
+            --bg-color: #F0F2F5;
             --text-color: #2A2A3C;
-            --header-bg: rgba(255, 255, 255, 0.95);
+            --header-bg: rgba(255, 255, 255, 0.98);
             --card-bg: #FFFFFF;
-            --section-bg: #F0F0F0;
+            --section-bg: #F5F7FA;
             --light-gray: #E9ECEF;
             --hero-opacity: 0.25;
         }
@@ -40,14 +51,15 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, sans-serif;
         }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            transition: all 0.3s ease;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         .container {
@@ -60,12 +72,19 @@
         /* Header Styles */
         header {
             background-color: var(--header-bg);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             backdrop-filter: blur(10px);
+            animation: slideDown 0.5s ease-out;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
         }
 
         nav {
@@ -79,10 +98,12 @@
             font-size: 28px;
             font-weight: 700;
             color: var(--primary);
+            animation: fadeIn 0.8s ease-out;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .logo span {
-            color: var(--secondary);
+            color: var(--accent);
         }
 
         .nav-links {
@@ -99,6 +120,22 @@
             color: var(--text-color);
             font-weight: 500;
             transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .nav-links a:hover {
@@ -113,14 +150,21 @@
             cursor: pointer;
             margin-left: 20px;
             transition: all 0.3s;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .theme-toggle:hover {
+            background-color: rgba(108, 99, 255, 0.1);
             color: var(--primary);
         }
 
         .cta-button {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -131,15 +175,34 @@
             text-decoration: none;
             display: inline-block;
             font-size: 18px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
         }
 
         .cta-button:hover {
-            background-color: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(108, 99, 255, 0.4);
         }
 
-        /* Hero Section - Modificada */
+        /* Hero Section - Melhorada */
         .hero {
             padding: 180px 0 100px;
             background: linear-gradient(135deg, var(--section-bg) 0%, var(--header-bg) 100%);
@@ -155,8 +218,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
-            opacity: var(--hero-opacity);
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(108, 99, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
             z-index: 0;
         }
 
@@ -171,6 +235,7 @@
         .hero-content {
             flex: 1.2;
             padding-right: 20px;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
         .hero h1 {
@@ -179,6 +244,7 @@
             color: var(--text-color);
             font-weight: 800;
             line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .hero p {
@@ -188,50 +254,80 @@
             font-weight: 400;
         }
 
+        /* CHAT AMPLIADO - TAMANHO AUMENTADO */
         .hero-chat {
             flex: 1;
             background-color: var(--card-bg);
             border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            max-width: 550px;
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            display: flex;
+            flex-direction: column;
+            height: 500px; /* Aumentado de 400px para 500px */
         }
 
         .chat-header {
             display: flex;
             align-items: center;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--light-gray);
-            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+            margin-bottom: 15px; /* Reduzido para dar mais espaço às mensagens */
+            flex-shrink: 0;
         }
 
         .chat-avatar {
-            width: 40px;
-            height: 40px;
-            background-color: var(--primary);
+            width: 50px; /* Aumentado de 40px para 50px */
+            height: 50px; /* Aumentado de 40px para 50px */
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
-            margin-right: 10px;
+            margin-right: 15px;
+            box-shadow: 0 4px 10px rgba(108, 99, 255, 0.3);
+            font-size: 20px; /* Aumentado para ficar proporcional */
         }
 
         .chat-header h4 {
-            font-size: 16px;
+            font-size: 18px; /* Aumentado de 16px para 18px */
+            font-weight: 600;
         }
 
         .chat-messages {
-            height: 300px;
+            flex: 1;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            margin-bottom: 15px; /* Reduzido para dar mais espaço às mensagens */
+            min-height: 0;
+        }
+
+        .messages-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Aumentado de 15px para 20px */
             overflow-y: auto;
-            margin-bottom: 20px;
+            padding-right: 5px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            max-height: 380px; /* Aumentado para dar mais espaço às mensagens */
+        }
+
+        .messages-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
         }
 
         .message {
-            margin-bottom: 15px;
             display: flex;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
         }
 
         .message-bot {
@@ -243,35 +339,96 @@
         }
 
         .message-content {
-            max-width: 70%;
-            padding: 10px 15px;
-            border-radius: 18px;
-            font-size: 14px;
+            max-width: 85%; /* Aumentado de 80% para 85% */
+            padding: 15px 20px; /* Aumentado o padding */
+            border-radius: 20px; /* Bordas mais arredondadas */
+            font-size: 16px; /* Aumentado de 14px para 16px */
+            line-height: 1.5; /* Melhor espaçamento entre linhas */
+            word-wrap: break-word;
         }
 
         .message-bot .message-content {
             background-color: var(--section-bg);
-            border: 1px solid var(--light-gray);
+            border: 1px solid rgba(108, 99, 255, 0.2);
             border-bottom-left-radius: 5px;
         }
 
         .message-user .message-content {
-            background-color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             color: white;
             border-bottom-right-radius: 5px;
+        }
+
+        /* Área de input menor - CORRIGIDA */
+        .chat-input {
+            display: flex;
+            gap: 10px; /* Reduzido de 12px para 10px */
+            flex-shrink: 0;
+            height: 50px; /* Altura fixa para a área de input */
+            align-items: center; /* Garantir alinhamento vertical */
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px; /* Ajustado padding */
+            border-radius: 25px;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            background-color: var(--section-bg);
+            color: var(--text-color);
+            font-size: 14px; /* Reduzido de 16px para 14px */
+            height: 100%; /* Ocupa toda a altura da área de input */
+        }
+
+        .chat-input button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 20px; /* Ajustado padding */
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px; /* Reduzido de 16px para 14px */
+            height: 100%; /* Ocupa toda a altura da área de input */
+            min-width: 50px; /* Largura mínima para o botão */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-input button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Problem Section */
         .problem-section {
             padding: 100px 0;
             background-color: var(--bg-color);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
         }
 
         .section-title {
             text-align: center;
             margin-bottom: 60px;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .section-title h2 {
@@ -294,16 +451,35 @@
 
         .problem-card {
             background-color: var(--card-bg);
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(108, 99, 255, 0.05), transparent);
+            transition: left 0.5s;
+        }
+
+        .problem-card:hover::before {
+            left: 100%;
         }
 
         .problem-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(108, 99, 255, 0.3);
         }
 
         .problem-card h3 {
@@ -320,9 +496,9 @@
         /* Solution Section */
         .solution-section {
             padding: 100px 0;
-            background-color: var(--section-bg);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            background: linear-gradient(135deg, var(--section-bg) 0%, var(--card-bg) 100%);
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
         }
 
         .solution-grid {
@@ -333,21 +509,37 @@
 
         .solution-card {
             background-color: var(--card-bg);
-            border-radius: 10px;
+            border-radius: 15px;
             padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            animation: fadeInUp 0.8s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
         }
 
         .solution-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
 
         .solution-icon {
             font-size: 50px;
-            color: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
         }
 
@@ -365,8 +557,8 @@
         .demo-section {
             padding: 100px 0;
             background-color: var(--bg-color);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(108, 99, 255, 0.1);
+            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
         }
 
         .demo-container {
@@ -380,6 +572,7 @@
 
         .demo-text {
             width: 100%;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .demo-text h2 {
@@ -395,11 +588,18 @@
 
         .demo-text li {
             margin-bottom: 30px;
-            padding: 20px;
+            padding: 25px;
             background-color: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(108, 99, 255, 0.1);
+            transition: transform 0.3s;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .demo-text li:hover {
+            transform: translateX(10px);
+            border-color: rgba(108, 99, 255, 0.3);
         }
 
         .demo-text li i {
@@ -413,6 +613,7 @@
             display: block;
             font-size: 20px;
             margin-bottom: 5px;
+            color: var(--primary);
         }
 
         .demo-text li p {
@@ -422,12 +623,13 @@
         .demo-text > p {
             font-size: 18px;
             margin-top: 30px;
+            color: var(--text-color);
         }
 
         /* CTA Section */
         .cta-section {
             padding: 120px 0;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             color: white;
             text-align: center;
             position: relative;
@@ -441,14 +643,16 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
-            opacity: 0.1;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
             z-index: 0;
         }
 
         .cta-section .container {
             position: relative;
             z-index: 1;
+            animation: fadeInUp 0.8s ease-out;
         }
 
         .cta-section h2 {
@@ -464,15 +668,17 @@
         }
 
         .cta-button.light {
-            background-color: var(--header-bg);
+            background: rgba(255, 255, 255, 0.9);
             color: var(--primary);
             padding: 15px 30px;
             font-size: 18px;
+            border: 2px solid transparent;
         }
 
         .cta-button.light:hover {
-            background-color: var(--light-gray);
+            background: white;
             color: var(--secondary);
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
         /* Cadastro Section */
@@ -484,33 +690,42 @@
             gap: 25px;
             background-color: var(--card-bg);
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            animation: fadeInUp 0.8s ease-out;
         }
 
         form label {
             display: block;
             margin-bottom: 8px;
             color: var(--text-color);
+            font-weight: 500;
         }
 
         form input {
             width: 100%;
             padding: 12px 15px;
-            border-radius: 5px;
-            border: 1px solid var(--light-gray);
-            background-color: var(--bg-color);
+            border-radius: 8px;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+            background-color: var(--section-bg);
             color: var(--text-color);
             font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
         }
 
         /* Footer */
         footer {
-            background-color: var(--dark);
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 100%);
             color: white;
             padding: 80px 0 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 1px solid rgba(108, 99, 255, 0.2);
         }
 
         .footer-content {
@@ -541,7 +756,7 @@
         }
 
         .footer-links a:hover {
-            color: white;
+            color: var(--primary);
         }
 
         .social-links {
@@ -552,18 +767,19 @@
 
         .social-links a {
             color: white;
-            background-color: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             width: 40px;
             height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background-color 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
 
         .social-links a:hover {
-            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.4);
         }
 
         .footer-bottom {
@@ -572,6 +788,40 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             color: #B0B0B0;
             font-size: 14px;
+        }
+
+        /* Loading State */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: rgba(108, 99, 255, 0.2);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+            display: none;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            width: 0%;
+            transition: width 0.3s;
         }
 
         /* Responsive */
@@ -588,10 +838,15 @@
                 max-width: 100%;
                 width: 100%;
                 margin-top: 40px;
+                height: 450px; /* Ajuste para tablet */
             }
 
             .hero-content {
                 padding-right: 0;
+            }
+            
+            .messages-container {
+                max-height: 330px; /* Ajuste para tablet */
             }
         }
 
@@ -630,6 +885,42 @@
             .demo-section {
                 padding: 80px 0;
             }
+            
+            .hero-chat {
+                height: 400px; /* Ajuste para mobile */
+                padding: 20px;
+            }
+            
+            .message-content {
+                font-size: 15px; /* Ajuste de fonte para mobile */
+                padding: 12px 16px;
+            }
+            
+            .chat-avatar {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+            }
+            
+            .messages-container {
+                max-height: 300px; /* Ajuste para mobile */
+            }
+            
+            .chat-input {
+                height: 45px;
+                gap: 8px;
+            }
+            
+            .chat-input input {
+                padding: 10px 12px;
+                font-size: 13px;
+            }
+            
+            .chat-input button {
+                padding: 10px 15px;
+                font-size: 13px;
+                min-width: 45px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -643,6 +934,7 @@
 
             .demo-text li {
                 margin-bottom: 20px;
+                padding: 20px;
             }
 
             .demo-text li strong {
@@ -652,357 +944,518 @@
             form {
                 padding: 25px;
             }
+            
+            .hero-chat {
+                height: 380px; /* Ajuste final para telas pequenas */
+            }
+            
+            .message-content {
+                max-width: 90%; /* Mais espaço para mensagens em telas pequenas */
+            }
+            
+            .messages-container {
+                max-height: 280px; /* Ajuste final para telas pequenas */
+            }
+            
+            .chat-input {
+                height: 42px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <nav>
-                <div class="logo">OverClick</div>
-                <ul class="nav-links">
-                    <li><a href="#inicio">Início</a></li>
-                    <li><a href="#servicos">Serviços</a></li>
-                    <li><a href="#suporte">Suporte</a></li>
-                    <li><a href="#sobre">Sobre nós</a></li>
-                    <li><a href="#cadastro">Cadastro</a></li>
-                </ul>
-                <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Overclick" class="cta-button">Falar com especialistas</a>
-            </nav>
-        </div>
-    </header>
+    <div id="root"></div>
 
-    <section class="hero" id="inicio">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Perdendo vendas por não atender na hora certa?</h1>
-                <p>Transforme seu atendimento em um serviço que nunca para, pronto pra vender a qualquer momento.</p>
-                <a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20OverClick" class="cta-button">Entre em contato conosco</a>
-            </div>
+    <script type="text/babel">
+        // Componente do Chat
+        const ChatSimulation = () => {
+            const [messages, setMessages] = React.useState([
+                { id: 1, text: "Olá! Boa tarde.", sender: "bot", delay: 0.2 },
+                { id: 2, text: "Olá! Sou seu assistente de compras. Em que posso ajudar hoje?", sender: "bot", delay: 0.4 },
+                { id: 3, text: "Olá! Gosto de ler livros, mas estou gastando muito.", sender: "user", delay: 0.6 },
+                { id: 4, text: "Certo! Temos de opção o kindle, onde por um só valor mensal, você possui livros para sempre!", sender: "bot", delay: 0.8 },
+                { id: 5, text: "Possuimos várias opções, qual seu orçamento para investimento na sua leitura?", sender: "bot", delay: 1.0 }
+            ]);
             
-            <div class="hero-chat">
-                <div class="chat-header">
-                    <div class="chat-avatar">O</div>
-                    <h4>OverClick Assistente</h4>
-                </div>
-                
-                <div class="chat-messages">
-                    <div class="message message-bot">
-                        <div class="message-content">
-                            <strong>Olá!</strong><br>
-                            Boa tarde.
-                        </div>
-                    </div>
-                    
-                    <div class="message message-bot">
-                        <div class="message-content">
-                            Olá! Sou seu assistente de compras. Em que posso ajudar hoje?
-                        </div>
-                    </div>
-                    
-                    <div class="message message-user">
-                        <div class="message-content">
-                            Olá! Gosto de ler livros, mas estou gastando muito.
-                        </div>
-                    </div>
-                    
-                    <div class="message message-bot">
-                        <div class="message-content">
-                            Certo! Temos de opção o kindle, onde por um só valor mensal, você possui livros para sempre!
-                        </div>
-                    </div>
-                    
-                    <div class="message message-bot">
-                        <div class="message-content">
-                            Possuimos várias opções, qual seu orçamento para investimento na sua leitura?
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            const [newMessage, setNewMessage] = React.useState("");
+            const [isTyping, setIsTyping] = React.useState(false);
+            const [firstInteraction, setFirstInteraction] = React.useState(true);
+            const messagesEndRef = React.useRef(null);
 
-    <section class="problem-section" id="servicos">
-        <div class="container">
-            <div class="section-title">
-                <h2>Isso acontece com você? Então esta IA é pra você!</h2>
-                <p>Na Overclick, entendemos que atender clientes vai muito além de apenas responder mensagens. É sobre ter estratégias de venda, suporte e tecnologia que realmente funcionam para não perder vendas.</p>
-            </div>
-            
-            <div class="problem-cards">
-                <div class="problem-card">
-                    <h3>Perde vendas fora do horário comercial?</h3>
-                    <p>A chance do cliente desistir ou procurar o concorrente aumenta porque está limitado pelo horário.</p>
-                </div>
-                
-                <div class="problem-card">
-                    <h3>Precisa de mais gente, mas não tem orçamento?</h3>
-                    <p>Uma automação bem feita economiza até 80% comparado a um funcionário, além de atender 24h por dia.</p>
-                </div>
-                
-                <div class="problem-card">
-                    <h3>Atendimento aparenta "menos" profissional?</h3>
-                    <p>Se sua empresa não atende bem e/ou atrasa agendamento, o cliente imagina que o resto também falha.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            const scrollToBottom = () => {
+                messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+            };
 
-    <section class="solution-section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Diga adeus às respostas lentas, agenda desorganizada e equipe sobrecarregada</h2>
-            </div>
-            
-            <div class="solution-grid">
-                <div class="solution-card">
-                    <div class="solution-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3>Atendimento rápido</h3>
-                    <p>O Agente responde mesmo fora do horário comercial, sem dias e horários de descanso.</p>
-                </div>
-                
-                <div class="solution-card">
-                    <div class="solution-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Redução de custos</h3>
-                    <p>Gaste até 80% menos que com um funcionário CLT.</p>
-                </div>
-                
-                <div class="solution-card">
-                    <div class="solution-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <h3>Respostas naturais</h3>
-                    <p>Nada de mensagens robóticas. A IA conversa como um humano de verdade.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+            React.useEffect(() => {
+                scrollToBottom();
+            }, [messages]);
 
-    <section class="demo-section">
-        <div class="container">
-            <div class="demo-container">
-                <div class="demo-text">
-                    <h2>Seu cliente atendido em segundos</h2>
-                    
-                    <ul>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <strong>Linguagem natural</strong>
-                            <p>Conversa fluida como se fosse um atendente humano</p>
-                        </li>
-                        
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <strong>Disponível 24 horas por dia</strong>
-                            <p>Nunca perca uma venda por estar fora do horário</p>
-                        </li>
-                        
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <strong>Diálogos exclusivos e personalizados</strong>
-                            <p>Cada cliente recebe atendimento único</p>
-                        </li>
-                        
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <strong>Agendas geradas automaticamente</strong>
-                            <p>Organização perfeita sem esforço</p>
-                        </li>
-                    </ul>
-                    
-                    <p><strong>Empresas que automatizam o atendimento aumentam vendas em até 40%.</strong></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="problem-section" id="cadastro">
-        <div class="container">
-            <div class="section-title">
-                <h2>Automatize de uma vez!</h2>
-                <p>Preencha as informações abaixo para que possamos entender melhor seu perfil.</p>
-            </div>
-
-            <form id="cadastroForm">
-                <div>
-                    <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" required>
-                </div>
-                <div>
-                    <label for="empresa">Empresa</label>
-                    <input type="text" id="empresa" name="empresa">
-                </div>
-                <div>
-                    <label for="segmento">Segmento (ex: loja, clínica, etc.)</label>
-                    <input type="text" id="segmento" name="segmento">
-                </div>
-            
-                <button type="submit" class="cta-button">Enviar</button>
-            </form>
-        </div>
-    </section>
-
-    <section class="cta-section" id="contato">
-        <div class="container">
-            <h2>Pronto para transformar seu atendimento?</h2>
-            <p>Nossa equipe está pronta para te mostrar como a Overclick pode impulsionar suas vendas e melhorar a experiência dos seus clientes.</p>
-            <a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20garantir%20minha%20vaga%20na%20Overclick" class="cta-button light">Quero garantir minha vaga</a>
-        </div>
-    </section>
-
-    <section class="problem-section" id="sobre">
-        <div class="container">
-            <div class="section-title">
-                <h2>Sobre nós</h2>
-                <p>Somos especialistas em automação de atendimento utilizando inteligência artificial. Na Overclick, ajudamos empresas a escalarem seu suporte e vendas com soluções modernas, inteligentes e humanizadas.</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Overclick</h3>
-                    <p>Soluções de atendimento automatizado com IA para impulsionar suas vendas 24 horas por dia.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://wa.me/5511941354487"><i class="fab fa-whatsapp"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Links</h3>
-                    <ul class="footer-links">
-                        <li><a href="#inicio">Início</a></li>
-                        <li><a href="#servicos">Serviços</a></li>
-                        <li><a href="#suporte">Suporte</a></li>
-                        <li><a href="#sobre">Sobre nós</a></li>
-                        <li><a href="#cadastro">Cadastro</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Serviços</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Atendimento 24/7</a></li>
-                        <li><a href="#">Chatbot Inteligente</a></li>
-                        <li><a href="#">Agendamento Automático</a></li>
-                        <li><a href="#">Análise de Conversas</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column">
-                    <h3>Contato</h3>
-                    <ul class="footer-links">
-                        <li><a href="mailto:contato@overclick.com">contato@overclick.com</a></li>
-                        <li><a href="tel:+5511941354487">(11) 94135-4487</a></li>
-                        <li><a href="https://wa.me/5511941354487">WhatsApp</a></li>
-                        <li><a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20agendar%20uma%20demonstração">Agende uma demonstração</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 Overclick. Todos os direitos reservados.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Theme toggle functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
-        
-        // Check for saved theme preference or use preferred color scheme
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
-            body.classList.add('light-mode');
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-        } else {
-            themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        }
-        
-        themeToggle.addEventListener('click', () => {
-            body.classList.toggle('light-mode');
-            
-            if (body.classList.contains('light-mode')) {
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                localStorage.setItem('theme', 'light');
-            } else {
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-        
-        // Simple script for smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            const handleSendMessage = (e) => {
                 e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+                if (!newMessage.trim()) return;
+
+                // Adiciona mensagem do usuário
+                const userMessage = {
+                    id: messages.length + 1,
+                    text: newMessage,
+                    sender: "user",
+                    delay: 0
+                };
+
+                setMessages(prev => [...prev, userMessage]);
+                setNewMessage("");
+                setIsTyping(true);
+
+                // Simula resposta do bot após um delay
+                setTimeout(() => {
+                    let botResponse;
+                    
+                    // Primeira interação sempre retorna a resposta específica
+                    if (firstInteraction) {
+                        botResponse = "Temos várias soluções que podem se adequar ao seu orçamento.";
+                        setFirstInteraction(false);
+                    } else {
+                        const botResponses = [
+                            "Entendi! Posso te ajudar a encontrar a melhor opção para suas necessidades.",
+                            "Excelente pergunta! Vou verificar as opções disponíveis para você.",
+                            "Posso te enviar mais informações sobre nossos planos?",
+                            "Que ótimo! Vamos encontrar a solução perfeita para você."
+                        ];
+                        
+                        botResponse = botResponses[Math.floor(Math.random() * botResponses.length)];
+                    }
+                    
+                    const botMessage = {
+                        id: messages.length + 2,
+                        text: botResponse,
+                        sender: "bot",
+                        delay: 0
+                    };
+
+                    setMessages(prev => [...prev, botMessage]);
+                    setIsTyping(false);
+                }, 1500);
+            };
+
+            return (
+                <div className="hero-chat">
+                    <div className="chat-header">
+                        <div className="chat-avatar">O</div>
+                        <h4>OverClick Assistente</h4>
+                    </div>
+                    
+                    <div className="chat-messages">
+                        <div className="messages-container">
+                            {messages.map((message) => (
+                                <div 
+                                    key={message.id} 
+                                    className={`message message-${message.sender}`}
+                                    style={{ animationDelay: `${message.delay}s` }}
+                                >
+                                    <div className="message-content">
+                                        {message.text}
+                                    </div>
+                                </div>
+                            ))}
+                            {isTyping && (
+                                <div className="message message-bot">
+                                    <div className="message-content">
+                                        <i className="fas fa-ellipsis-h"></i> Digitando...
+                                    </div>
+                                </div>
+                            )}
+                            <div ref={messagesEndRef} />
+                        </div>
+                    </div>
+                    
+                    <form className="chat-input" onSubmit={handleSendMessage}>
+                        <input 
+                            type="text" 
+                            placeholder="Digite sua mensagem..." 
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                        />
+                        <button type="submit">
+                            <i className="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            );
+        };
+
+        // Componente do Formulário de Cadastro
+        const CadastroForm = () => {
+            const [formData, setFormData] = React.useState({
+                nome: "",
+                empresa: "",
+                segmento: ""
+            });
+            const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+            const handleChange = (e) => {
+                setFormData({
+                    ...formData,
+                    [e.target.name]: e.target.value
                 });
-            });
-        });
-        
-        // Demo chat animation
-        const messages = document.querySelectorAll('.message');
-        messages.forEach((msg, index) => {
-            msg.style.opacity = '0';
-            msg.style.transform = 'translateY(20px)';
-            msg.style.transition = 'all 0.5s ease ' + (index * 0.3) + 's';
-            
-            setTimeout(() => {
-                msg.style.opacity = '1';
-                msg.style.transform = 'translateY(0)';
-            }, 100 + (index * 300));
-        });
+            };
 
-        // Form submission handler (versão atualizada)
-        const form = document.getElementById('cadastroForm');
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                setIsSubmitting(true);
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault(); // Impede o recarregamento da página
+                // URL do script do Google Sheets
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbx5Sdri3bZfbknLdA3tkXTnPJgWoOc5Ud-WDkxmQQHoko0wgHgTUS2O7Avl7NT257RjEA/exec';
 
-            // URL do seu script do Google Sheets
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbx5Sdri3bZfbknLdA3tkXTnPJgWoOc5Ud-WDkxmQQHoko0wgHgTUS2O7Avl7NT257RjEA/exec';
+                fetch(scriptURL, { 
+                    method: 'POST', 
+                    body: new FormData(e.target)
+                })
+                .then(response => {
+                    console.log('Success!', response);
+                    alert("Cadastro enviado com sucesso!");
+                    setFormData({ nome: "", empresa: "", segmento: "" });
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    alert("Ocorreu um erro ao enviar o cadastro. Tente novamente.");
+                })
+                .finally(() => {
+                    setIsSubmitting(false);
+                });
+            };
 
-            const submitButton = form.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.textContent;
-            submitButton.textContent = 'Enviando...';
-            submitButton.disabled = true;
+            return (
+                <form id="cadastroForm" onSubmit={handleSubmit}>
+                    <div>
+                        <label htmlFor="nome">Nome</label>
+                        <input 
+                            type="text" 
+                            id="nome" 
+                            name="nome" 
+                            value={formData.nome}
+                            onChange={handleChange}
+                            required 
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="empresa">Empresa</label>
+                        <input 
+                            type="text" 
+                            id="empresa" 
+                            name="empresa" 
+                            value={formData.empresa}
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="segmento">Segmento (ex: loja, clínica, etc.)</label>
+                        <input 
+                            type="text" 
+                            id="segmento" 
+                            name="segmento" 
+                            value={formData.segmento}
+                            onChange={handleChange}
+                        />
+                    </div>
+                
+                    <button type="submit" className="cta-button" disabled={isSubmitting}>
+                        {isSubmitting ? (
+                            <>
+                                <span className="loading"></span> Enviando...
+                            </>
+                        ) : (
+                            "Enviar"
+                        )}
+                    </button>
+                </form>
+            );
+        };
 
-            fetch(scriptURL, { 
-                method: 'POST', 
-                body: new FormData(form) // Envia os dados do formulário
-            })
-            .then(response => {
-                console.log('Success!', response);
-                alert("Cadastro enviado com sucesso!");
-                form.reset(); // Limpa o formulário
-            })
-            .catch(error => {
-                console.error('Error!', error.message);
-                alert("Ocorreu um erro ao enviar o cadastro. Tente novamente.");
-            })
-            .finally(() => {
-                // Reabilita o botão após o envio
-                submitButton.textContent = originalButtonText;
-                submitButton.disabled = false;
-            });
-        });
+        // Componente Principal
+        const App = () => {
+            const [darkMode, setDarkMode] = React.useState(true);
+
+            React.useEffect(() => {
+                // Check for saved theme preference or use preferred color scheme
+                const savedTheme = localStorage.getItem('theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                
+                if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
+                    setDarkMode(false);
+                    document.body.classList.add('light-mode');
+                }
+                
+                // Garantir que a página abra no topo
+                window.scrollTo(0, 0);
+            }, []);
+
+            const toggleTheme = () => {
+                setDarkMode(!darkMode);
+                document.body.classList.toggle('light-mode');
+                
+                if (document.body.classList.contains('light-mode')) {
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    localStorage.setItem('theme', 'dark');
+                }
+            };
+
+            // Smooth scrolling
+            React.useEffect(() => {
+                const smoothScroll = (e) => {
+                    e.preventDefault();
+                    const targetId = e.target.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                };
+
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', smoothScroll);
+                });
+
+                return () => {
+                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                        anchor.removeEventListener('click', smoothScroll);
+                    });
+                };
+            }, []);
+
+            return (
+                <>
+                    {/* Progress Bar */}
+                    <div className="progress-container" id="progressContainer">
+                        <div className="progress-bar" id="progressBar"></div>
+                    </div>
+
+                    <header>
+                        <div className="container">
+                            <nav>
+                                <div className="logo">Over<span>Click</span></div>
+                                <ul className="nav-links">
+                                    <li><a href="#inicio">Início</a></li>
+                                    <li><a href="#servicos">Serviços</a></li>
+                                    <li><a href="#suporte">Suporte</a></li>
+                                    <li><a href="#sobre">Sobre nós</a></li>
+                                    <li><a href="#cadastro">Cadastro</a></li>
+                                </ul>
+                                <button className="theme-toggle" id="themeToggle" onClick={toggleTheme}>
+                                    <i className={darkMode ? "fas fa-sun" : "fas fa-moon"}></i>
+                                </button>
+                                <a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Overclick" 
+                                   className="cta-button" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer">Falar com especialistas</a>
+                            </nav>
+                        </div>
+                    </header>
+
+                    <section className="hero" id="inicio">
+                        <div className="container">
+                            <div className="hero-content">
+                                <h1>Perdendo vendas por não atender na hora certa?</h1>
+                                <p>Transforme seu atendimento em um serviço que nunca para, pronto pra vender a qualquer momento.</p>
+                                <a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20OverClick" 
+                                   className="cta-button" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer">Entre em contato conosco</a>
+                            </div>
+                            
+                            <ChatSimulation />
+                        </div>
+                    </section>
+
+                    <section className="problem-section" id="servicos">
+                        <div className="container">
+                            <div className="section-title">
+                                <h2>Isso acontece com você? Então esta IA é pra você!</h2>
+                                <p>Na Overclick, entendemos que atender clientes vai muito além de apenas responder mensagens. É sobre ter estratégias de venda, suporte e tecnologia que realmente funcionam para não perder vendas.</p>
+                            </div>
+                            
+                            <div className="problem-cards">
+                                <div className="problem-card" style={{animationDelay: "0.2s"}}>
+                                    <h3>Perde vendas fora do horário comercial?</h3>
+                                    <p>A chance do cliente desistir ou procurar o concorrente aumenta porque está limitado pelo horário.</p>
+                                </div>
+                                
+                                <div className="problem-card" style={{animationDelay: "0.4s"}}>
+                                    <h3>Precisa de mais gente, mas não tem orçamento?</h3>
+                                    <p>Uma automação bem feita economiza até 80% comparado a um funcionário, além de atender 24h por dia.</p>
+                                </div>
+                                
+                                <div className="problem-card" style={{animationDelay: "0.6s"}}>
+                                    <h3>Atendimento aparenta "menos" profissional?</h3>
+                                    <p>Se sua empresa não atende bem e/ou atrasa agendamento, o cliente imagina que o resto também falha.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="solution-section">
+                        <div className="container">
+                            <div className="section-title">
+                                <h2>Diga adeus às respostas lentas, agenda desorganizada e equipe sobrecarregada</h2>
+                            </div>
+                            
+                            <div className="solution-grid">
+                                <div className="solution-card" style={{animationDelay: "0.2s"}}>
+                                    <div className="solution-icon">
+                                        <i className="fas fa-bolt"></i>
+                                    </div>
+                                    <h3>Atendimento rápido</h3>
+                                    <p>O Agente responde mesmo fora do horário comercial, sem dias e horários de descanso.</p>
+                                </div>
+                                
+                                <div className="solution-card" style={{animationDelay: "0.4s"}}>
+                                    <div className="solution-icon">
+                                        <i className="fas fa-chart-line"></i>
+                                    </div>
+                                    <h3>Redução de custos</h3>
+                                    <p>Gaste até 80% menos que com um funcionário CLT.</p>
+                                </div>
+                                
+                                <div className="solution-card" style={{animationDelay: "0.6s"}}>
+                                    <div className="solution-icon">
+                                        <i className="fas fa-comments"></i>
+                                    </div>
+                                    <h3>Respostas naturais</h3>
+                                    <p>Nada de mensagens robóticas. A IA conversa como um humano de verdade.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="demo-section">
+                        <div className="container">
+                            <div className="demo-container">
+                                <div className="demo-text">
+                                    <h2>Seu cliente atendido em segundos</h2>
+                                    
+                                    <ul>
+                                        <li style={{animationDelay: "0.2s"}}>
+                                            <i className="fas fa-check-circle"></i>
+                                            <strong>Linguagem natural</strong>
+                                            <p>Conversa fluida como se fosse um atendente humano</p>
+                                        </li>
+                                        
+                                        <li style={{animationDelay: "0.4s"}}>
+                                            <i className="fas fa-check-circle"></i>
+                                            <strong>Disponível 24 horas por dia</strong>
+                                            <p>Nunca perca uma venda por estar fora do horário</p>
+                                        </li>
+                                        
+                                        <li style={{animationDelay: "0.6s"}}>
+                                            <i className="fas fa-check-circle"></i>
+                                            <strong>Diálogos exclusivos e personalizados</strong>
+                                            <p>Cada cliente recebe atendimento único</p>
+                                        </li>
+                                        
+                                        <li style={{animationDelay: "0.8s"}}>
+                                            <i className="fas fa-check-circle"></i>
+                                            <strong>Agendas geradas automaticamente</strong>
+                                            <p>Organização perfeita sem esforço</p>
+                                        </li>
+                                    </ul>
+                                    
+                                    <p><strong>Empresas que automatizam o atendimento aumentam vendas em até 40%.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="problem-section" id="cadastro">
+                        <div className="container">
+                            <div className="section-title">
+                                <h2>Automatize de uma vez!</h2>
+                                <p>Preencha as informações abaixo para que possamos entender melhor seu perfil.</p>
+                            </div>
+
+                            <CadastroForm />
+                        </div>
+                    </section>
+
+                    <section className="cta-section" id="contato">
+                        <div className="container">
+                            <h2>Pronto para transformar seu atendimento?</h2>
+                            <p>Nossa equipe está pronta para te mostrar como a Overclick pode impulsionar suas vendas e melhorar a experiência dos seus clientes.</p>
+                            <a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20garantir%20minha%20vaga%20na%20Overclick" 
+                               className="cta-button light" 
+                               target="_blank" 
+                               rel="noopener noreferrer">Quero garantir minha vaga</a>
+                        </div>
+                    </section>
+
+                    <section className="problem-section" id="sobre">
+                        <div className="container">
+                            <div className="section-title">
+                                <h2>Sobre nós</h2>
+                                <p>Somos especialistas em automação de atendimento utilizando inteligência artificial. Na Overclick, ajudamos empresas a escalarem seu suporte e vendas com soluções modernas, inteligentes e humanizadas.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <footer>
+                        <div className="container">
+                            <div className="footer-content">
+                                <div className="footer-column">
+                                    <h3>Overclick</h3>
+                                    <p>Soluções de atendimento automatizado com IA para impulsionar suas vendas 24 horas por dia.</p>
+                                    <div className="social-links">
+                                        <a href="#"><i className="fab fa-facebook-f"></i></a>
+                                        <a href="#"><i className="fab fa-instagram"></i></a>
+                                        <a href="#"><i className="fab fa-linkedin-in"></i></a>
+                                        <a href="https://wa.me/5511941354487" target="_blank" rel="noopener noreferrer"><i className="fab fa-whatsapp"></i></a>
+                                    </div>
+                                </div>
+                                
+                                <div className="footer-column">
+                                    <h3>Links</h3>
+                                    <ul className="footer-links">
+                                        <li><a href="#inicio">Início</a></li>
+                                        <li><a href="#servicos">Serviços</a></li>
+                                        <li><a href="#suporte">Suporte</a></li>
+                                        <li><a href="#sobre">Sobre nós</a></li>
+                                        <li><a href="#cadastro">Cadastro</a></li>
+                                    </ul>
+                                </div>
+                                
+                                <div className="footer-column">
+                                    <h3>Serviços</h3>
+                                    <ul className="footer-links">
+                                        <li><a href="#">Atendimento 24/7</a></li>
+                                        <li><a href="#">Chatbot Inteligente</a></li>
+                                        <li><a href="#">Agendamento Automático</a></li>
+                                        <li><a href="#">Análise de Conversas</a></li>
+                                    </ul>
+                                </div>
+                                
+                                <div className="footer-column">
+                                    <h3>Contato</h3>
+                                    <ul className="footer-links">
+                                        <li><a href="mailto:contato@overclick.com">contato@overclick.com</a></li>
+                                        <li><a href="tel:+5511941354487">(11) 94135-4487</a></li>
+                                        <li><a href="https://wa.me/5511941354487" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+                                        <li><a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20agendar%20uma%20demonstração" target="_blank" rel="noopener noreferrer">Agende uma demonstração</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div className="footer-bottom">
+                                <p>&copy; 2025 Overclick. Todos os direitos reservados.</p>
+                            </div>
+                        </div>
+                    </footer>
+                </>
+            );
+        };
+
+        // Renderizar a aplicação
+        ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
 </html>
