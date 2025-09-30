@@ -293,6 +293,14 @@
             font-size: 20px;
         }
 
+        .chat-avatar.robot i {
+            font-size: 24px;
+        }
+
+        .chat-avatar.robot {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        }
+
         .chat-header h4 {
             font-size: 18px;
             font-weight: 600;
@@ -910,6 +918,10 @@
                 font-size: 18px;
             }
             
+            .chat-avatar.robot i {
+                font-size: 20px;
+            }
+            
             .messages-container {
                 max-height: 340px;
             }
@@ -994,6 +1006,10 @@
             .cta-section p {
                 fontSize: 16px;
             }
+            
+            .chat-avatar.robot i {
+                font-size: 18px;
+            }
         }
 
         @media (max-width: 360px) {
@@ -1023,6 +1039,175 @@
                 height: 40px;
                 font-size: 16px;
             }
+            
+            .chat-avatar.robot i {
+                font-size: 16px;
+            }
+        }
+
+        /* ===== CORREÇÕES ESPECÍFICAS PARA MOBILE - LEGIBILIDADE ===== */
+        @media (max-width: 768px) {
+            /* Chat - Melhorias de legibilidade */
+            .message-content {
+                font-size: 15px !important;
+                padding: 12px 16px !important;
+                line-height: 1.4 !important;
+                max-width: 85% !important;
+            }
+            
+            .hero-chat {
+                height: 400px !important;
+                padding: 20px !important;
+            }
+            
+            .messages-container {
+                max-height: 340px !important;
+                gap: 15px !important;
+            }
+            
+            .chat-header h4 {
+                font-size: 18px !important;
+            }
+            
+            .chat-avatar {
+                width: 45px !important;
+                height: 45px !important;
+                font-size: 18px !important;
+            }
+            
+            .chat-avatar.robot i {
+                font-size: 20px !important;
+            }
+            
+            /* Textos - Melhorias de legibilidade */
+            .hero h1 {
+                font-size: 32px !important;
+                line-height: 1.3 !important;
+                margin-bottom: 20px !important;
+            }
+            
+            .hero p {
+                font-size: 18px !important;
+                line-height: 1.5 !important;
+                margin-bottom: 30px !important;
+            }
+            
+            .section-title h2 {
+                font-size: 28px !important;
+                line-height: 1.3 !important;
+            }
+            
+            .problem-card h3,
+            .solution-card h3 {
+                font-size: 20px !important;
+                line-height: 1.3 !important;
+            }
+            
+            .problem-card p,
+            .solution-card p {
+                font-size: 16px !important;
+                line-height: 1.5 !important;
+            }
+            
+            /* Cards - Melhor espaçamento */
+            .problem-card,
+            .solution-card {
+                padding: 25px 20px !important;
+                margin-bottom: 20px !important;
+            }
+            
+            .demo-text li {
+                padding: 20px !important;
+                margin-bottom: 20px !important;
+            }
+            
+            /* Formulário - Mais espaçoso */
+            form {
+                padding: 25px 20px !important;
+                margin: 0 10px !important;
+                gap: 20px !important;
+            }
+            
+            form input {
+                padding: 14px 12px !important;
+                font-size: 16px !important;
+            }
+            
+            form label {
+                font-size: 16px !important;
+                margin-bottom: 10px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .message-content {
+                font-size: 14px !important;
+                padding: 10px 14px !important;
+                max-width: 90% !important;
+            }
+            
+            .hero-chat {
+                height: 380px !important;
+                padding: 15px !important;
+            }
+            
+            .messages-container {
+                max-height: 320px !important;
+            }
+            
+            .chat-avatar.robot i {
+                font-size: 18px !important;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 28px !important;
+            }
+            
+            .hero p {
+                font-size: 16px !important;
+            }
+            
+            .hero-chat {
+                height: 350px !important;
+            }
+            
+            .message-content {
+                font-size: 13px !important;
+                padding: 8px 12px !important;
+            }
+            
+            .chat-header h4 {
+                font-size: 16px !important;
+            }
+            
+            .chat-avatar {
+                width: 40px !important;
+                height: 40px !important;
+                font-size: 16px !important;
+            }
+            
+            .chat-avatar.robot i {
+                font-size: 16px !important;
+            }
+            
+            .container {
+                padding: 0 15px !important;
+            }
+        }
+
+        /* Garantir que textos sejam selecionáveis e legíveis */
+        .message-content {
+            user-select: text !important;
+            -webkit-user-select: text !important;
+        }
+
+        /* Melhorar contraste no light mode */
+        .light-mode .message-bot .message-content {
+            background-color: #f8f9fa !important;
+            border: 1px solid #e9ecef !important;
+            color: #2A2A3C !important;
         }
     </style>
 </head>
@@ -1034,16 +1219,18 @@
         const ChatSimulation = () => {
             const messages = [
                 { id: 1, text: "Olá! Boa tarde.", sender: "bot", delay: 0.2 },
-                { id: 2, text: "Olá! Sou seu assistente de compras. Em que posso ajudar hoje?", sender: "bot", delay: 0.4 },
+                { id: 2, text: "Sou seu assistente de compras. Em que posso ajudar hoje?", sender: "bot", delay: 0.4 },
                 { id: 3, text: "Olá! Gosto de ler livros, mas estou gastando muito.", sender: "user", delay: 0.6 },
                 { id: 4, text: "Certo! Temos de opção o kindle, onde por um só valor mensal, você possui livros para sempre!", sender: "bot", delay: 0.8 },
-                { id: 5, text: "Possuimos várias opções, qual seu orçamento para investimento na sua leitura?", sender: "bot", delay: 1.0 }
+                { id: 5, text: "Possuimos várias versões, para todos os gostos, qual seu orçamento para investimento na sua leitura?", sender: "bot", delay: 1.0 }
             ];
 
             return (
                 <div className="hero-chat">
                     <div className="chat-header">
-                        <div className="chat-avatar">O</div>
+                        <div className="chat-avatar robot">
+                            <i className="fas fa-robot"></i>
+                        </div>
                         <h4>OverClick Assistente</h4>
                     </div>
                     
@@ -1087,7 +1274,7 @@
                 e.preventDefault();
                 setIsSubmitting(true);
 
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbx5Sdri3bZfbknLdA3tkXTnPJgWoOc5Ud-WDkxmQQHoko0wgHgTUS2O7Avl7NT257RjEA/exec';
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbxuBYYpYW4TXw0q3CV_zEmQCBCuNqyNKzwlZgr1hnQuVf9Shv877M40mPimuuP8McY/exec';
 
                 fetch(scriptURL, { 
                     method: 'POST', 
@@ -1131,7 +1318,7 @@
                         />
                     </div>
                     <div>
-                        <label htmlFor="segmento">Segmento (ex: loja, clínica, etc.)</label>
+                        <label htmlFor="segmento">Contato</label>
                         <input 
                             type="text" 
                             id="segmento" 
@@ -1237,7 +1424,7 @@
                                 <a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Overclick" 
                                    className="cta-button" 
                                    target="_blank" 
-                                   rel="noopener noreferrer">Falar com especialistas</a>
+                                   rel="noopener noreferrer">Falar com especialistas!</a>
                                 <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
                                     <i className={mobileMenuOpen ? "fas fa-times" : "fas fa-bars"}></i>
                                 </button>
@@ -1273,7 +1460,7 @@
                                 <a href="https://wa.me/5511941354487?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20OverClick" 
                                    className="cta-button" 
                                    target="_blank" 
-                                   rel="noopener noreferrer">Entre em contato conosco</a>
+                                   rel="noopener noreferrer">Entre em contato conosco!</a>
                             </div>
                             
                             <ChatSimulation />
@@ -1284,7 +1471,7 @@
                         <div className="container">
                             <div className="section-title">
                                 <h2>Isso acontece com você? Então esta IA é pra você!</h2>
-                                <p>Na Overclick, entendemos que atender clientes vai muito além de apenas responder mensagens. É sobre ter estratégias de venda, suporte e tecnologia que realmente funcionam para não perder vendas.</p>
+                                <p>Na Overclick, entendemos que atender clientes vai muito além de apenas responder mensagens. É sobre ter estratégias de venda, suporte e tecnologia que realmente funcionam para efetuar vendas.</p>
                             </div>
                             
                             <div className="problem-cards">
@@ -1309,7 +1496,7 @@
                     <section className="solution-section">
                         <div className="container">
                             <div className="section-title">
-                                <h2>Diga adeus às respostas lentas, agenda desorganizada e equipe sobrecarregada</h2>
+                                <h2>De as boas-vindas ao verdadeiro atendimento!</h2>
                             </div>
                             
                             <div className="solution-grid">
@@ -1334,7 +1521,7 @@
                                         <i className="fas fa-comments"></i>
                                     </div>
                                     <h3>Respostas naturais</h3>
-                                    <p>Nada de mensagens robóticas. A IA conversa como um humano de verdade.</p>
+                                    <p>Nada de mensagens robóticas. É um atendimento humanizado de verdade.</p>
                                 </div>
                             </div>
                         </div>
@@ -1350,25 +1537,25 @@
                                         <li style={{animationDelay: "0.2s"}}>
                                             <i className="fas fa-check-circle"></i>
                                             <strong>Linguagem natural</strong>
-                                            <p>Conversa fluida como se fosse um atendente humano</p>
+                                            <p>Conversa fluida e humanizada.</p>
                                         </li>
                                         
                                         <li style={{animationDelay: "0.4s"}}>
                                             <i className="fas fa-check-circle"></i>
                                             <strong>Disponível 24 horas por dia</strong>
-                                            <p>Nunca perca uma venda por estar fora do horário</p>
+                                            <p>Efetue vendas fora do horário comercial.</p>
                                         </li>
                                         
                                         <li style={{animationDelay: "0.6s"}}>
                                             <i className="fas fa-check-circle"></i>
                                             <strong>Diálogos exclusivos e personalizados</strong>
-                                            <p>Cada cliente recebe atendimento único</p>
+                                            <p>Cada cliente recebe atendimento único.</p>
                                         </li>
                                         
                                         <li style={{animationDelay: "0.8s"}}>
                                             <i className="fas fa-check-circle"></i>
-                                            <strong>Agendas geradas automaticamente</strong>
-                                            <p>Organização perfeita sem esforço</p>
+                                            <strong>Estoques atualizados automaticamente</strong>
+                                            <p>Organização perfeita sem esforço.</p>
                                         </li>
                                     </ul>
                                     
@@ -1382,7 +1569,7 @@
                         <div className="container">
                             <div className="section-title">
                                 <h2>Automatize de uma vez!</h2>
-                                <p>Preencha as informações abaixo para que possamos entender melhor seu perfil.</p>
+                                <p>Preencha as informações abaixo para que possamos entrar em contato.</p>
                             </div>
 
                             <CadastroForm />
@@ -1404,7 +1591,7 @@
                         <div className="container">
                             <div className="section-title">
                                 <h2>Sobre nós</h2>
-                                <p>Somos especialistas em automação de atendimento utilizando inteligência artificial. Na Overclick, ajudamos empresas a escalarem seu suporte e vendas com soluções modernas, inteligentes e humanizadas.</p>
+                                <p>Somos especialistas em atendimento utilizando agentes de IA. Na Overclick, ajudamos empresas a escalarem seu suporte e vendas com soluções modernas, inteligentes e humanizadas.</p>
                             </div>
                         </div>
                     </section>
