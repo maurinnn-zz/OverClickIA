@@ -281,7 +281,7 @@
         .chat-avatar {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -295,10 +295,6 @@
 
         .chat-avatar.robot i {
             font-size: 24px;
-        }
-
-        .chat-avatar.robot {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
         }
 
         .chat-header h4 {
@@ -361,7 +357,7 @@
         }
 
         .message-user .message-content {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             border-bottom-right-radius: 5px;
         }
@@ -493,7 +489,7 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         }
 
         .solution-card:hover {
@@ -503,7 +499,7 @@
 
         .solution-icon {
             font-size: 50px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 20px;
@@ -595,7 +591,7 @@
         /* CTA Section */
         .cta-section {
             padding: 120px 0;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: white;
             text-align: center;
             position: relative;
@@ -733,7 +729,7 @@
 
         .social-links a {
             color: white;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -785,7 +781,7 @@
 
         .progress-bar {
             height: 100%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             width: 0%;
             transition: width 0.3s;
         }
@@ -834,7 +830,7 @@
             border-bottom: 1px solid rgba(108, 99, 255, 0.2);
         }
 
-        /* Responsive */
+        /* ===== CORREÇÕES ESPECÍFICAS PARA MOBILE - LEGIBILIDADE ===== */
         @media (max-width: 1024px) {
             .hero .container {
                 flex-direction: column;
@@ -902,167 +898,22 @@
                 padding: 80px 0;
             }
             
-            .hero-chat {
-                height: 400px;
-                padding: 20px;
-            }
-            
-            .message-content {
-                font-size: 15px;
-                padding: 12px 16px;
-            }
-            
-            .chat-avatar {
-                width: 45px;
-                height: 45px;
-                font-size: 18px;
-            }
-            
-            .chat-avatar.robot i {
-                font-size: 20px;
-            }
-            
-            .messages-container {
-                max-height: 340px;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-                text-align: center;
-            }
-
-            .social-links {
-                justify-content: center;
-            }
-
-            form {
-                padding: 25px;
-                margin: 0 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .hero p {
-                font-size: 18px;
-            }
-
-            .demo-text li {
-                margin-bottom: 20px;
-                padding: 20px;
-            }
-
-            .demo-text li strong {
-                font-size: 18px;
-            }
-
-            form {
-                padding: 20px;
-            }
-            
-            .hero-chat {
-                height: 380px;
-                padding: 15px;
-            }
-            
-            .message-content {
-                max-width: 90%;
-                font-size: 14px;
-                padding: 10px 14px;
-            }
-            
-            .messages-container {
-                max-height: 320px;
-                gap: 15px;
-            }
-
-            .problem-cards,
-            .solution-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .problem-card,
-            .solution-card {
-                padding: 20px;
-            }
-
-            .container {
-                padding: 0 15px;
-            }
-
-            .cta-section {
-                padding: 80px 0;
-            }
-
-            .cta-section h2 {
-                font-size: 28px;
-            }
-
-            .cta-section p {
-                fontSize: 16px;
-            }
-            
-            .chat-avatar.robot i {
-                font-size: 18px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .hero h1 {
-                font-size: 28px;
-            }
-
-            .hero p {
-                font-size: 16px;
-            }
-
-            .hero-chat {
-                height: 350px;
-            }
-
-            .message-content {
-                font-size: 13px;
-                padding: 8px 12px;
-            }
-
-            .chat-header h4 {
-                font-size: 16px;
-            }
-
-            .chat-avatar {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
-            
-            .chat-avatar.robot i {
-                font-size: 16px;
-            }
-        }
-
-        /* ===== CORREÇÕES ESPECÍFICAS PARA MOBILE - LEGIBILIDADE ===== */
-        @media (max-width: 768px) {
             /* Chat - Melhorias de legibilidade */
             .message-content {
-                font-size: 15px !important;
-                padding: 12px 16px !important;
-                line-height: 1.4 !important;
+                font-size: 16px !important;
+                padding: 14px 18px !important;
+                line-height: 1.5 !important;
                 max-width: 85% !important;
             }
             
             .hero-chat {
-                height: 400px !important;
+                height: 420px !important;
                 padding: 20px !important;
             }
             
             .messages-container {
-                max-height: 340px !important;
-                gap: 15px !important;
+                max-height: 360px !important;
+                gap: 18px !important;
             }
             
             .chat-header h4 {
@@ -1070,13 +921,13 @@
             }
             
             .chat-avatar {
-                width: 45px !important;
-                height: 45px !important;
-                font-size: 18px !important;
+                width: 48px !important;
+                height: 48px !important;
+                font-size: 20px !important;
             }
             
             .chat-avatar.robot i {
-                font-size: 20px !important;
+                font-size: 22px !important;
             }
             
             /* Textos - Melhorias de legibilidade */
@@ -1137,30 +988,36 @@
                 font-size: 16px !important;
                 margin-bottom: 10px !important;
             }
+            
+            /* Botão CTA sempre visível */
+            .mobile-cta {
+                display: inline-block !important;
+                margin-top: 15px;
+                width: 100%;
+                text-align: center;
+            }
         }
 
         @media (max-width: 480px) {
             .message-content {
-                font-size: 14px !important;
-                padding: 10px 14px !important;
+                font-size: 15px !important;
+                padding: 12px 16px !important;
                 max-width: 90% !important;
             }
             
             .hero-chat {
-                height: 380px !important;
-                padding: 15px !important;
+                height: 400px !important;
+                padding: 18px !important;
             }
             
             .messages-container {
-                max-height: 320px !important;
+                max-height: 340px !important;
             }
             
             .chat-avatar.robot i {
-                font-size: 18px !important;
+                font-size: 20px !important;
             }
-        }
-
-        @media (max-width: 360px) {
+            
             .hero h1 {
                 font-size: 28px !important;
             }
@@ -1168,14 +1025,64 @@
             .hero p {
                 font-size: 16px !important;
             }
+
+            .demo-text li {
+                margin-bottom: 20px;
+                padding: 20px;
+            }
+
+            .demo-text li strong {
+                font-size: 18px;
+            }
+
+            form {
+                padding: 20px;
+            }
+            
+            .problem-cards,
+            .solution-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .problem-card,
+            .solution-card {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .cta-section {
+                padding: 80px 0;
+            }
+
+            .cta-section h2 {
+                font-size: 28px;
+            }
+
+            .cta-section p {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero h1 {
+                font-size: 26px !important;
+            }
+            
+            .hero p {
+                font-size: 15px !important;
+            }
             
             .hero-chat {
-                height: 350px !important;
+                height: 380px !important;
             }
             
             .message-content {
-                font-size: 13px !important;
-                padding: 8px 12px !important;
+                font-size: 14px !important;
+                padding: 10px 14px !important;
             }
             
             .chat-header h4 {
@@ -1183,17 +1090,59 @@
             }
             
             .chat-avatar {
-                width: 40px !important;
-                height: 40px !important;
-                font-size: 16px !important;
+                width: 42px !important;
+                height: 42px !important;
+                font-size: 18px !important;
             }
             
             .chat-avatar.robot i {
-                font-size: 16px !important;
+                font-size: 18px !important;
             }
             
             .container {
                 padding: 0 15px !important;
+            }
+        }
+
+        /* Acessibilidade para Mobile Retrato */
+        @media (max-width: 768px) and (orientation: portrait) {
+            /* Aumentar área de toque para botões */
+            .cta-button, 
+            .theme-toggle, 
+            .mobile-menu-btn,
+            .social-links a {
+                min-height: 44px;
+                min-width: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            /* Melhorar espaçamento entre elementos interativos */
+            .nav-links li,
+            .footer-links li,
+            .mobile-nav-links li {
+                margin-bottom: 10px;
+            }
+            
+            /* Aumentar tamanho da fonte para melhor legibilidade */
+            body {
+                font-size: 16px;
+            }
+            
+            /* Melhorar contraste para leitura em condições de baixa luz */
+            .hero-chat {
+                background-color: var(--card-bg);
+                border: 2px solid rgba(108, 99, 255, 0.3);
+            }
+            
+            .message-content {
+                font-weight: 500;
+            }
+            
+            /* Garantir que o chat seja legível */
+            .hero-chat {
+                max-height: 70vh;
             }
         }
 
@@ -1470,7 +1419,7 @@
                     <section className="problem-section" id="servicos">
                         <div className="container">
                             <div className="section-title">
-                                <h2>Isso acontece com você? Então esta IA é pra você!</h2>
+                                <h2>Isso acontece? Então a IA é pra você!</h2>
                                 <p>Na Overclick, entendemos que atender clientes vai muito além de apenas responder mensagens. É sobre ter estratégias de venda, suporte e tecnologia que realmente funcionam para efetuar vendas.</p>
                             </div>
                             
