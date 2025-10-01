@@ -682,6 +682,11 @@
             box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
         }
 
+        form input::placeholder {
+            color: var(--gray);
+            opacity: 0.7;
+        }
+
         /* Footer */
         footer {
             background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 100%);
@@ -909,6 +914,7 @@
             .hero-chat {
                 height: 420px !important;
                 padding: 20px !important;
+                display: flex !important; /* Garantir que o chat seja exibido */
             }
             
             .messages-container {
@@ -1253,6 +1259,7 @@
                             name="nome" 
                             value={formData.nome}
                             onChange={handleChange}
+                            placeholder="Escreva seu nome completo"
                             required 
                         />
                     </div>
@@ -1264,6 +1271,7 @@
                             name="empresa" 
                             value={formData.empresa}
                             onChange={handleChange}
+                            placeholder="Escreva o nome da sua empresa"
                         />
                     </div>
                     <div>
@@ -1274,6 +1282,7 @@
                             name="segmento" 
                             value={formData.segmento}
                             onChange={handleChange}
+                            placeholder="Escreva seu telefone ou e-mail"
                         />
                     </div>
                 
