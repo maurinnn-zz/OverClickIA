@@ -2,1611 +2,595 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OverClick - Atendimento Automatizado 24/7</title>
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="description" content="OverClick - Automação de atendimento via IA para WhatsApp. Vendas 24h, chatbots inteligentes e suporte automatizado para sua empresa.">
+    <meta name="keywords" content="automação atendimento, chatbot IA, WhatsApp business, vendas 24h, OverClick">
+    <meta name="author" content="OverClick">
+    <meta name="theme-color" content="#0D0D1A">
     
-    <!-- Pré-carregamento de recursos críticos -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <title>OverClick | Atendimento Inteligente com IA 24h</title>
     
-    <!-- CSS Otimizado -->
-    <style>
-        /* CSS Crítico - Carrega primeiro */
-        :root {
-            --primary: #6C63FF;
-            --secondary: #4D44DB;
-            --accent: #FF6B6B;
-            --accent-light: #FF9E9E;
-            --dark: #0F0F1A;
-            --light: #F8F9FA;
-            --success: #28A745;
-            --warning: #FFC107;
-            --danger: #DC3545;
-            --gray: #8A8FA3;
-            --light-gray: #E9ECEF;
-            --bg-color: #0F0F1A;
-            --text-color: #F8F9FA;
-            --header-bg: rgba(20, 20, 35, 0.95);
-            --card-bg: #1A1A2E;
-            --section-bg: #161627;
-            --hero-opacity: 0.15;
-        }
-
-        .light-mode {
-            --dark: #2A2A3C;
-            --light: #F8F9FA;
-            --bg-color: #F0F2F5;
-            --text-color: #2A2A3C;
-            --header-bg: rgba(255, 255, 255, 0.98);
-            --card-bg: #FFFFFF;
-            --section-bg: #F5F7FA;
-            --light-gray: #E9ECEF;
-            --hero-opacity: 0.25;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header Styles */
-        header {
-            background-color: var(--header-bg);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            animation: slideDown 0.5s ease-out;
-            border-bottom: 1px solid rgba(108, 99, 255, 0.2);
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary);
-            animation: fadeIn 0.8s ease-out;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-size: 20px;
-            cursor: pointer;
-            margin-left: 20px;
-            transition: all 0.3s;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-toggle:hover {
-            background-color: rgba(108, 99, 255, 0.1);
-            color: var(--primary);
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 18px;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            box-shadow: 0 4px 15px rgba(108, 99, 255, 0.3);
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-            z-index: -1;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(108, 99, 255, 0.4);
-        }
-
-        /* Hero Section - Melhorada */
-        .hero {
-            padding: 180px 0 100px;
-            background: linear-gradient(135deg, var(--section-bg) 0%, var(--header-bg) 100%);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 0;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(108, 99, 255, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 107, 107, 0.1) 0%, transparent 50%);
-            z-index: 0;
-        }
-
-        .hero .container {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            gap: 60px;
-        }
-
-        .hero-content {
-            flex: 1.2;
-            padding-right: 20px;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-        }
-
-        .hero h1 {
-            font-size: 56px;
-            margin-bottom: 30px;
-            color: var(--text-color);
-            font-weight: 800;
-            line-height: 1.2;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .hero p {
-            font-size: 24px;
-            color: var(--gray);
-            margin-bottom: 50px;
-            font-weight: 400;
-        }
-
-        /* CHAT APENAS VISUAL - SEM INPUT */
-        .hero-chat {
-            flex: 1;
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            max-width: 550px;
-            border: 1px solid rgba(108, 99, 255, 0.2);
-            animation: fadeInUp 0.8s ease-out 0.4s both;
-            display: flex;
-            flex-direction: column;
-            height: 500px;
-        }
-
-        .chat-header {
-            display: flex;
-            align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(108, 99, 255, 0.2);
-            margin-bottom: 15px;
-            flex-shrink: 0;
-        }
-
-        .chat-avatar {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            margin-right: 15px;
-            box-shadow: 0 4px 10px rgba(108, 99, 255, 0.3);
-            font-size: 20px;
-        }
-
-        .chat-avatar.robot i {
-            font-size: 24px;
-        }
-
-        .chat-header h4 {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .chat-messages {
-            flex: 1;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            min-height: 0;
-        }
-
-        .messages-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            overflow-y: auto;
-            padding-right: 5px;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-            max-height: 420px;
-        }
-
-        .messages-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .message {
-            display: flex;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.5s ease forwards;
-        }
-
-        .message-bot {
-            justify-content: flex-start;
-        }
-
-        .message-user {
-            justify-content: flex-end;
-        }
-
-        .message-content {
-            max-width: 85%;
-            padding: 15px 20px;
-            border-radius: 20px;
-            font-size: 16px;
-            line-height: 1.5;
-            word-wrap: break-word;
-        }
-
-        .message-bot .message-content {
-            background-color: var(--section-bg);
-            border: 1px solid rgba(108, 99, 255, 0.2);
-            border-bottom-left-radius: 5px;
-        }
-
-        .message-user .message-content {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            border-bottom-right-radius: 5px;
-        }
-
-        /* Animações */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Problem Section */
-        .problem-section {
-            padding: 100px 0;
-            background-color: var(--bg-color);
-            border-top: 1px solid rgba(108, 99, 255, 0.1);
-            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .section-title h2 {
-            font-size: 36px;
-            color: var(--text-color);
-            margin-bottom: 15px;
-        }
-
-        .section-title p {
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .problem-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .problem-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(108, 99, 255, 0.1);
-            animation: fadeInUp 0.8s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .problem-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(108, 99, 255, 0.05), transparent);
-            transition: left 0.5s;
-        }
-
-        .problem-card:hover::before {
-            left: 100%;
-        }
-
-        .problem-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border-color: rgba(108, 99, 255, 0.3);
-        }
-
-        .problem-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-
-        .problem-card p {
-            color: var(--gray);
-            margin-bottom: 20px;
-        }
-
-        /* Solution Section */
-        .solution-section {
-            padding: 100px 0;
-            background: linear-gradient(135deg, var(--section-bg) 0%, var(--card-bg) 100%);
-            border-top: 1px solid rgba(108, 99, 255, 0.1);
-            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
-        }
-
-        .solution-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .solution-card {
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-            border: 1px solid rgba(108, 99, 255, 0.1);
-            animation: fadeInUp 0.8s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .solution-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-        }
-
-        .solution-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-        }
-
-        .solution-icon {
-            font-size: 50px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-        }
-
-        .solution-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
-
-        .solution-card p {
-            color: var(--gray);
-        }
-
-        /* Demo Section */
-        .demo-section {
-            padding: 100px 0;
-            background-color: var(--bg-color);
-            border-top: 1px solid rgba(108, 99, 255, 0.1);
-            border-bottom: 1px solid rgba(108, 99, 255, 0.1);
-        }
-
-        .demo-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .demo-text {
-            width: 100%;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .demo-text h2 {
-            font-size: 36px;
-            margin-bottom: 40px;
-            color: var(--text-color);
-        }
-
-        .demo-text ul {
-            list-style: none;
-            margin-bottom: 40px;
-        }
-
-        .demo-text li {
-            margin-bottom: 30px;
-            padding: 25px;
-            background-color: var(--card-bg);
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            border: 1px solid rgba(108, 99, 255, 0.1);
-            transition: transform 0.3s;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .demo-text li:hover {
-            transform: translateX(10px);
-            border-color: rgba(108, 99, 255, 0.3);
-        }
-
-        .demo-text li i {
-            color: var(--success);
-            font-size: 24px;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .demo-text li strong {
-            display: block;
-            font-size: 20px;
-            margin-bottom: 5px;
-            color: var(--primary);
-        }
-
-        .demo-text li p {
-            color: var(--gray);
-        }
-
-        .demo-text > p {
-            font-size: 18px;
-            margin-top: 30px;
-            color: var(--text-color);
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 120px 0;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            z-index: 0;
-        }
-
-        .cta-section .container {
-            position: relative;
-            z-index: 1;
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        .cta-section h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-
-        .cta-section p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            opacity: 0.9;
-        }
-
-        .cta-button.light {
-            background: rgba(255, 255, 255, 0.9);
-            color: var(--primary);
-            padding: 15px 30px;
-            font-size: 18px;
-            border: 2px solid transparent;
-        }
-
-        .cta-button.light:hover {
-            background: white;
-            color: var(--secondary);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Cadastro Section */
-        form {
-            max-width: 500px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            background-color: var(--card-bg);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(108, 99, 255, 0.2);
-            animation: fadeInUp 0.8s ease-out;
-        }
-
-        form label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-color);
-            font-weight: 500;
-        }
-
-        form input {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid rgba(108, 99, 255, 0.3);
-            background-color: var(--section-bg);
-            color: var(--text-color);
-            font-size: 16px;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        form input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
-        }
-
-        form input::placeholder {
-            color: var(--gray);
-            opacity: 0.7;
-        }
-
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 100%);
-            color: white;
-            padding: 80px 0 30px;
-            border-top: 1px solid rgba(108, 99, 255, 0.2);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 50px;
-            margin-bottom: 50px;
-        }
-
-        .footer-column h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: #B0B0B0;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            color: white;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .social-links a:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.4);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #B0B0B0;
-            font-size: 14px;
-        }
-
-        /* Loading State */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* Progress Bar */
-        .progress-container {
-            width: 100%;
-            height: 4px;
-            background: rgba(108, 99, 255, 0.2);
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1001;
-            display: none;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            width: 0%;
-            transition: width 0.3s;
-        }
-
-        /* Menu Mobile */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-color);
-            font-size: 24px;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .mobile-nav {
-            display: none;
-            position: fixed;
-            top: 80px;
-            left: 0;
-            width: 100%;
-            background: var(--header-bg);
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            z-index: 999;
-        }
-
-        .mobile-nav.active {
-            display: block;
-        }
-
-        .mobile-nav-links {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .mobile-nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 18px;
-            padding: 10px 0;
-            display: block;
-            border-bottom: 1px solid rgba(108, 99, 255, 0.2);
-        }
-
-        /* ===== CORREÇÕES ESPECÍFICAS PARA MOBILE - LEGIBILIDADE ===== */
-        @media (max-width: 1024px) {
-            .hero .container {
-                flex-direction: column;
-            }
-            
-            .hero h1 {
-                font-size: 48px;
-            }
-            
-            .hero-chat {
-                max-width: 100%;
-                width: 100%;
-                margin-top: 40px;
-                height: 450px;
-            }
-
-            .hero-content {
-                padding-right: 0;
-                text-align: center;
-            }
-            
-            .messages-container {
-                max-height: 370px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links,
-            .cta-button:not(.mobile-cta) {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .hero {
-                padding: 150px 0 80px;
-            }
-
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .hero p {
-                font-size: 20px;
-            }
-
-            .section-title h2 {
-                font-size: 30px;
-            }
-
-            .cta-button {
-                padding: 12px 25px;
-                font-size: 16px;
-            }
-
-            .demo-text h2 {
-                font-size: 30px;
-            }
-
-            .problem-section,
-            .solution-section,
-            .demo-section {
-                padding: 80px 0;
-            }
-            
-            /* Chat - Melhorias de legibilidade */
-            .message-content {
-                font-size: 16px !important;
-                padding: 14px 18px !important;
-                line-height: 1.5 !important;
-                max-width: 85% !important;
-            }
-            
-            .hero-chat {
-                height: 420px !important;
-                padding: 20px !important;
-                display: flex !important; /* Garantir que o chat seja exibido */
-            }
-            
-            .messages-container {
-                max-height: 360px !important;
-                gap: 18px !important;
-            }
-            
-            .chat-header h4 {
-                font-size: 18px !important;
-            }
-            
-            .chat-avatar {
-                width: 48px !important;
-                height: 48px !important;
-                font-size: 20px !important;
-            }
-            
-            .chat-avatar.robot i {
-                font-size: 22px !important;
-            }
-            
-            /* Textos - Melhorias de legibilidade */
-            .hero h1 {
-                font-size: 32px !important;
-                line-height: 1.3 !important;
-                margin-bottom: 20px !important;
-            }
-            
-            .hero p {
-                font-size: 18px !important;
-                line-height: 1.5 !important;
-                margin-bottom: 30px !important;
-            }
-            
-            .section-title h2 {
-                font-size: 28px !important;
-                line-height: 1.3 !important;
-            }
-            
-            .problem-card h3,
-            .solution-card h3 {
-                font-size: 20px !important;
-                line-height: 1.3 !important;
-            }
-            
-            .problem-card p,
-            .solution-card p {
-                font-size: 16px !important;
-                line-height: 1.5 !important;
-            }
-            
-            /* Cards - Melhor espaçamento */
-            .problem-card,
-            .solution-card {
-                padding: 25px 20px !important;
-                margin-bottom: 20px !important;
-            }
-            
-            .demo-text li {
-                padding: 20px !important;
-                margin-bottom: 20px !important;
-            }
-            
-            /* Formulário - Mais espaçoso */
-            form {
-                padding: 25px 20px !important;
-                margin: 0 10px !important;
-                gap: 20px !important;
-            }
-            
-            form input {
-                padding: 14px 12px !important;
-                font-size: 16px !important;
-            }
-            
-            form label {
-                font-size: 16px !important;
-                margin-bottom: 10px !important;
-            }
-            
-            /* Botão CTA sempre visível */
-            .mobile-cta {
-                display: inline-block !important;
-                margin-top: 15px;
-                width: 100%;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .message-content {
-                font-size: 15px !important;
-                padding: 12px 16px !important;
-                max-width: 90% !important;
-            }
-            
-            .hero-chat {
-                height: 400px !important;
-                padding: 18px !important;
-            }
-            
-            .messages-container {
-                max-height: 340px !important;
-            }
-            
-            .chat-avatar.robot i {
-                font-size: 20px !important;
-            }
-            
-            .hero h1 {
-                font-size: 28px !important;
-            }
-            
-            .hero p {
-                font-size: 16px !important;
-            }
-
-            .demo-text li {
-                margin-bottom: 20px;
-                padding: 20px;
-            }
-
-            .demo-text li strong {
-                font-size: 18px;
-            }
-
-            form {
-                padding: 20px;
-            }
-            
-            .problem-cards,
-            .solution-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .problem-card,
-            .solution-card {
-                padding: 20px;
-            }
-
-            .container {
-                padding: 0 15px;
-            }
-
-            .cta-section {
-                padding: 80px 0;
-            }
-
-            .cta-section h2 {
-                font-size: 28px;
-            }
-
-            .cta-section p {
-                font-size: 16px;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .hero h1 {
-                font-size: 26px !important;
-            }
-            
-            .hero p {
-                font-size: 15px !important;
-            }
-            
-            .hero-chat {
-                height: 380px !important;
-            }
-            
-            .message-content {
-                font-size: 14px !important;
-                padding: 10px 14px !important;
-            }
-            
-            .chat-header h4 {
-                font-size: 16px !important;
-            }
-            
-            .chat-avatar {
-                width: 42px !important;
-                height: 42px !important;
-                font-size: 18px !important;
-            }
-            
-            .chat-avatar.robot i {
-                font-size: 18px !important;
-            }
-            
-            .container {
-                padding: 0 15px !important;
-            }
-        }
-
-        /* Acessibilidade para Mobile Retrato */
-        @media (max-width: 768px) and (orientation: portrait) {
-            /* Aumentar área de toque para botões */
-            .cta-button, 
-            .theme-toggle, 
-            .mobile-menu-btn,
-            .social-links a {
-                min-height: 44px;
-                min-width: 44px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            
-            /* Melhorar espaçamento entre elementos interativos */
-            .nav-links li,
-            .footer-links li,
-            .mobile-nav-links li {
-                margin-bottom: 10px;
-            }
-            
-            /* Aumentar tamanho da fonte para melhor legibilidade */
-            body {
-                font-size: 16px;
-            }
-            
-            /* Melhorar contraste para leitura em condições de baixa luz */
-            .hero-chat {
-                background-color: var(--card-bg);
-                border: 2px solid rgba(108, 99, 255, 0.3);
-            }
-            
-            .message-content {
-                font-weight: 500;
-            }
-            
-            /* Garantir que o chat seja legível */
-            .hero-chat {
-                max-height: 70vh;
-            }
-        }
-
-        /* Garantir que textos sejam selecionáveis e legíveis */
-        .message-content {
-            user-select: text !important;
-            -webkit-user-select: text !important;
-        }
-
-        /* Melhorar contraste no light mode */
-        .light-mode .message-bot .message-content {
-            background-color: #f8f9fa !important;
-            border: 1px solid #e9ecef !important;
-            color: #2A2A3C !important;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <div id="root"></div>
+    <div class="scroll-progress">
+        <div class="scroll-progress-bar"></div>
+    </div>
 
-    <script type="text/babel">
-        // Componente do Chat - APENAS VISUAL (sem input)
-        const ChatSimulation = () => {
-            const messages = [
-                { id: 1, text: "Olá! Boa tarde.", sender: "bot", delay: 0.2 },
-                { id: 2, text: "Sou seu assistente de compras. Em que posso ajudar hoje?", sender: "bot", delay: 0.4 },
-                { id: 3, text: "Olá! Gosto de ler livros, mas estou gastando muito.", sender: "user", delay: 0.6 },
-                { id: 4, text: "Certo! Temos de opção o kindle, onde por um só valor mensal, você possui livros para sempre!", sender: "bot", delay: 0.8 },
-                { id: 5, text: "Possuimos várias versões, para todos os gostos, qual seu orçamento para investimento na sua leitura?", sender: "bot", delay: 1.0 }
-            ];
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#hero" class="logo">
+                    <span class="logo-mark">O</span>
+                    <span class="logo-text">verClick</span>
+                </a>
+                
+                <ul class="nav-links">
+                    <li><a href="#hero" class="nav-link">Início</a></li>
+                    <li><a href="#problem" class="nav-link">Problema</a></li>
+                    <li><a href="#solution" class="nav-link">Solução</a></li>
+                    <li><a href="#benefits" class="nav-link">Benefícios</a></li>
+                    <li><a href="#demo" class="nav-link">Demonstração</a></li>
+                </ul>
+                
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="#form-section" class="btn btn-primary btn-sm">Começar Agora</a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
 
-            return (
-                <div className="hero-chat">
-                    <div className="chat-header">
-                        <div className="chat-avatar robot">
-                             <img src="OverClick assistent.png" alt="OverClick Assistente" style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }} />
-                        </div>
-                        <h4>OverClick Assistente</h4>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <span class="logo">OverClick</span>
+            <button class="mobile-menu-close" id="mobileMenuClose">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <ul class="mobile-menu-links">
+            <li><a href="#hero" class="mobile-link">Início</a></li>
+            <li><a href="#problem" class="mobile-link">Problema</a></li>
+            <li><a href="#solution" class="mobile-link">Solução</a></li>
+            <li><a href="#benefits" class="mobile-link">Benefícios</a></li>
+            <li><a href="#demo" class="mobile-link">Demonstração</a></li>
+        </ul>
+        <div class="mobile-menu-footer">
+            <a href="#form-section" class="btn btn-primary btn-block">Começar Agora</a>
+        </div>
+    </div>
+
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="badge-pulse"></span>
+                        IA de Alta Performance
                     </div>
-                    
-                    <div className="chat-messages">
-                        <div className="messages-container">
-                            {messages.map((message) => (
-                                <div 
-                                    key={message.id} 
-                                    className={`message message-${message.sender}`}
-                                    style={{ animationDelay: `${message.delay}s` }}
-                                >
-                                    <div className="message-content">
-                                        {message.text}
-                                    </div>
+                    <h1 class="hero-title">
+                        Seu WhatsApp deveria vender <span class="gradient-text">24h por dia</span>
+                        <br>O seu está parado.
+                    </h1>
+                    <p class="hero-subtitle">
+                        Enquanto você dorme, seus concorrentes estão fechando vendas. 
+                        Automatize seu atendimento com IA e nunca mais perca uma oportunidade.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">+40%</span>
+                            <span class="stat-label">mais vendas</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label">atendimento</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">-80%</span>
+                            <span class="stat-label">nos custos</span>
+                        </div>
+                    </div>
+                    <div class="hero-cta">
+                        <a href="#form-section" class="btn btn-primary btn-large">
+                            <i class="fas fa-rocket"></i>
+                            Automatizar Agora
+                        </a>
+                        <a href="#demo" class="btn btn-outline btn-large">
+                            <i class="fas fa-play"></i>
+                            Ver Demonstração
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-chat">
+                    <div class="chat-window">
+                        <div class="chat-header">
+                            <div class="chat-avatar">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E" alt="Avatar">
+                            </div>
+                            <div class="chat-info">
+                                <h4>OverClick Assistente</h4>
+                                <span class="chat-status">Online · Responde em segundos</span>
+                            </div>
+                        </div>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message message-bot">
+                                <div class="message-content">
+                                    Olá! 👋 Sou o assistente da OverClick. Como posso ajudar seus clientes hoje?
                                 </div>
-                            ))}
-                            <div style={{height: '0px'}} />
+                                <span class="message-time">Agora</span>
+                            </div>
+                            <div class="message message-user">
+                                <div class="message-content">
+                                    Quero saber o preço do produto X
+                                </div>
+                                <span class="message-time">Agora</span>
+                            </div>
+                            <div class="message message-bot">
+                                <div class="message-content">
+                                    Claro! Nosso produto X custa R$ 297,00 à vista com 12% de desconto. Posso ajudar com mais informações?
+                                </div>
+                                <span class="message-time">Agora</span>
+                            </div>
+                        </div>
+                        <div class="chat-typing" id="chatTyping">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+                    <div class="chat-note">
+                        <i class="fas fa-bolt"></i>
+                        Respostas automáticas · Conversa natural · 24 horas
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem" id="problem">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">A Verdade</span>
+                <h2 class="section-title">Você está perdendo dinheiro <span class="gradient-text">todo dia</span></h2>
+                <p class="section-subtitle">
+                    Enquanto você não responde, seu concorrente está fechando a venda.
+                </p>
+            </div>
+            
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Atendimento lento = Venda perdida</h3>
+                    <p>Após 5 minutos sem resposta, a chance do cliente desistir aumenta em 80%. Seu concorrente está online agora.</p>
+                    <div class="problem-stats">
+                        <span class="stat-badge negative">-80% conversão</span>
+                    </div>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h3>Fora do horário comercial?</h3>
+                    <p>70% das mensagens chegam fora do expediente. Cada mensagem não respondida é uma venda que vai para o concorrente.</p>
+                    <div class="problem-stats">
+                        <span class="stat-badge negative">70% fora do horário</span>
+                    </div>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Equipe cara e ineficiente</h3>
+                    <p>Um atendente custa R$ 3.000+/mês e trabalha só 8h. Você paga por horas paradas e perde vendas à noite.</p>
+                    <div class="problem-stats">
+                        <span class="stat-badge negative">R$ 36k/ano por funcionário</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="problem-impact">
+                <div class="impact-number">
+                    <span class="impact-value">R$ 5.400</span>
+                    <span class="impact-label">perdidos por mês</span>
+                </div>
+                <p>Essa é a média do que empresas do seu porte deixam de faturar por falta de atendimento automatizado.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="solution" id="solution">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">A Solução</span>
+                <h2 class="section-title">IA que <span class="gradient-text">vende por você</span> 24 horas por dia</h2>
+                <p class="section-subtitle">
+                    Tecnologia de ponta que transforma seu WhatsApp em uma máquina de vendas automática.
+                </p>
+            </div>
+            
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>IA Treinada para Vender</h3>
+                    <p>Nossa IA entende linguagem natural, resolve problemas e conduz o cliente até a compra — igual um vendedor expert.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3>WhatsApp Totalmente Integrado</h3>
+                    <p>Funciona na sua conta do WhatsApp Business. Sem apps novos, sem complicação. Seu cliente nem percebe que é IA.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Análise e Otimização</h3>
+                    <p>Dashboard completo com métricas de conversão, tempo de resposta e oportunidades de melhoria.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">
+                        <i class="fas fa-infinity"></i>
+                    </div>
+                    <h3>Escala sem Limites</h3>
+                    <p>Atenda 1 ou 10.000 clientes simultaneamente. Sua única limitação é o quanto quer crescer.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="benefits-header">
+                <div class="section-header">
+                    <span class="section-tag">Resultados Reais</span>
+                    <h2 class="section-title">O que você ganha <span class="gradient-text">automatizando agora</span></h2>
+                </div>
+            </div>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-simple"></i>
+                    </div>
+                    <div class="benefit-number">+40%</div>
+                    <h3>Aumento nas Vendas</h3>
+                    <p>Empresas que automatizam o atendimento aumentam as vendas em até 40% no primeiro mês.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="benefit-number">-80%</div>
+                    <h3>Redução de Custos</h3>
+                    <p>Gaste 80% menos que uma equipe tradicional de atendimento.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <div class="benefit-number">24/7</div>
+                    <h3>Atendimento Ininterrupto</h3>
+                    <p>Venda enquanto dorme, nos feriados e finais de semana. Seu negócio nunca mais para.</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <div class="benefit-number">98%</div>
+                    <h3>Satisfação dos Clientes</h3>
+                    <p>Respostas instantâneas e atendimento humanizado que encanta seus clientes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo" id="demo">
+        <div class="container">
+            <div class="demo-wrapper">
+                <div class="demo-content">
+                    <span class="section-tag">Veja Funcionando</span>
+                    <h2 class="section-title">Simule uma <span class="gradient-text">conversa real</span></h2>
+                    <p class="demo-description">
+                        Clique nos botões abaixo e veja como nossa IA responde de forma natural, 
+                        resolve dúvidas e conduz o cliente até a compra.
+                    </p>
+                    
+                    <div class="demo-controls">
+                        <button class="demo-btn" data-message="Qual o preço do plano básico?">
+                            💰 Perguntar preço
+                        </button>
+                        <button class="demo-btn" data-message="Quero saber mais sobre a automação">
+                            🤖 Saber mais sobre IA
+                        </button>
+                        <button class="demo-btn" data-message="Como funciona a integração com WhatsApp?">
+                            📱 Integração WhatsApp
+                        </button>
+                        <button class="demo-btn" data-message="Quero contratar agora!">
+                            🚀 Quero contratar
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="demo-chat">
+                    <div class="chat-window">
+                        <div class="chat-header">
+                            <div class="chat-avatar">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/%3E%3C/svg%3E" alt="Avatar">
+                            </div>
+                            <div class="chat-info">
+                                <h4>OverClick Assistente</h4>
+                                <span class="chat-status">Online</span>
+                            </div>
+                        </div>
+                        <div class="chat-messages" id="demoChatMessages">
+                            <div class="message message-bot">
+                                <div class="message-content">
+                                    Olá! 👋 Sou o assistente virtual da OverClick. Como posso ajudar você hoje?
+                                </div>
+                                <span class="message-time">Agora</span>
+                            </div>
+                        </div>
+                        <div class="chat-input-demo">
+                            <input type="text" placeholder="Digite sua mensagem..." id="demoChatInput">
+                            <button id="demoChatSend">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-            );
-        };
+            </div>
+        </div>
+    </section>
 
-        // Componente do Formulário de Cadastro
-        const CadastroForm = () => {
-            const [formData, setFormData] = React.useState({
-                nome: "",
-                empresa: "",
-                segmento: ""
-            });
-            const [isSubmitting, setIsSubmitting] = React.useState(false);
+    <section class="social-proof">
+        <div class="container">
+            <div class="proof-grid">
+                <div class="proof-item">
+                    <div class="proof-number">500+</div>
+                    <div class="proof-label">Empresas atendidas</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">1.2M+</div>
+                    <div class="proof-label">Atendimentos realizados</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">98%</div>
+                    <div class="proof-label">de satisfação</div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-number">24/7</div>
+                    <div class="proof-label">Disponibilidade total</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            const handleChange = (e) => {
-                setFormData({
-                    ...formData,
-                    [e.target.name]: e.target.value
-                });
-            };
-
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                setIsSubmitting(true);
-
-                const scriptURL = 'https://script.google.com/macros/s/AKfycbxuBYYpYW4TXw0q3CV_zEmQCBCuNqyNKzwlZgr1hnQuVf9Shv877M40mPimuuP8McY/exec';
-
-                fetch(scriptURL, { 
-                    method: 'POST', 
-                    body: new FormData(e.target)
-                })
-                .then(response => {
-                    console.log('Success!', response);
-                    alert("Cadastro enviado com sucesso!");
-                    setFormData({ nome: "", empresa: "", segmento: "" });
-                })
-                .catch(error => {
-                    console.error('Error!', error.message);
-                    alert("Ocorreu um erro ao enviar o cadastro. Tente novamente.");
-                })
-                .finally(() => {
-                    setIsSubmitting(false);
-                });
-            };
-
-            return (
-                <form id="cadastroForm" onSubmit={handleSubmit}>
-                    <div>
-                        <label htmlFor="nome">Nome</label>
-                        <input 
-                            type="text" 
-                            id="nome" 
-                            name="nome" 
-                            value={formData.nome}
-                            onChange={handleChange}
-                            placeholder="Escreva seu nome completo"
-                            required 
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="empresa">Empresa</label>
-                        <input 
-                            type="text" 
-                            id="empresa" 
-                            name="empresa" 
-                            value={formData.empresa}
-                            onChange={handleChange}
-                            placeholder="Escreva o nome da sua empresa"
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="segmento">Contato</label>
-                        <input 
-                            type="text" 
-                            id="segmento" 
-                            name="segmento" 
-                            value={formData.segmento}
-                            onChange={handleChange}
-                            placeholder="Escreva seu telefone ou e-mail"
-                        />
-                    </div>
-                
-                    <button type="submit" className="cta-button" disabled={isSubmitting}>
-                        {isSubmitting ? (
-                            <>
-                                <span className="loading"></span> Enviando...
-                            </>
-                        ) : (
-                            "Enviar"
-                        )}
-                    </button>
-                </form>
-            );
-        };
-
-        // Componente Principal
-        const App = () => {
-            const [darkMode, setDarkMode] = React.useState(true);
-            const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-
-            React.useEffect(() => {
-                const savedTheme = localStorage.getItem('theme');
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                
-                if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
-                    setDarkMode(false);
-                    document.body.classList.add('light-mode');
-                }
-                
-                window.scrollTo(0, 0);
-            }, []);
-
-            const toggleTheme = () => {
-                setDarkMode(!darkMode);
-                document.body.classList.toggle('light-mode');
-                
-                if (document.body.classList.contains('light-mode')) {
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    localStorage.setItem('theme', 'dark');
-                }
-            };
-
-            const toggleMobileMenu = () => {
-                setMobileMenuOpen(!mobileMenuOpen);
-            };
-
-            // Smooth scrolling
-            React.useEffect(() => {
-                const smoothScroll = (e) => {
-                    e.preventDefault();
-                    const targetId = e.target.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
+    <!-- FORMULÁRIO COM CAMPOS CORRETOS: Nome, Email, Telefone, Empresa, Cargo -->
+    <section class="form-section" id="form-section">
+        <div class="container">
+            <div class="form-wrapper">
+                <div class="form-content">
+                    <span class="section-tag">Comece Agora</span>
+                    <h2 class="section-title">Pronto para <span class="gradient-text">aumentar suas vendas?</span></h2>
+                    <p class="form-description">
+                        Preencha o formulário e receba instantaneamente o acesso à sua automação.
+                    </p>
                     
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                        setMobileMenuOpen(false);
-                    }
-                };
-
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', smoothScroll);
-                });
-
-                return () => {
-                    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                        anchor.removeEventListener('click', smoothScroll);
-                    });
-                };
-            }, []);
-
-            return (
-                <>
-                    {/* Progress Bar */}
-                    <div className="progress-container" id="progressContainer">
-                        <div className="progress-bar" id="progressBar"></div>
+                    <div class="form-guarantee">
+                        <i class="fas fa-bolt"></i>
+                        <span>Ativação instantânea · Suporte 24h · 100% automatizado</span>
                     </div>
-
-                    <header>
-                        <div className="container">
-                            <nav>
-                                <div className="logo">OverClick</div>
-                                <ul className="nav-links">
-                                    <li><a href="#inicio">Início</a></li>
-                                    <li><a href="#servicos">Serviços</a></li>
-                                    <li><a href="#suporte">Suporte</a></li>
-                                    <li><a href="#sobre">Sobre nós</a></li>
-                                    <li><a href="#cadastro">Cadastro</a></li>
-                                </ul>
-                                <button className="theme-toggle" id="themeToggle" onClick={toggleTheme}>
-                                    <i className={darkMode ? "fas fa-sun" : "fas fa-moon"}></i>
-                                </button>
-                                <a href="https://wa.me/5511921668441?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Overclick" 
-                                   className="cta-button" 
-                                   target="_blank" 
-                                   rel="noopener noreferrer">Falar com especialistas!</a>
-                                <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
-                                    <i className={mobileMenuOpen ? "fas fa-times" : "fas fa-bars"}></i>
-                                </button>
-                            </nav>
-                        </div>
-                    </header>
-
-                    {/* Menu Mobile */}
-                    <div className={`mobile-nav ${mobileMenuOpen ? 'active' : ''}`}>
-                        <ul className="mobile-nav-links">
-                            <li><a href="#inicio" onClick={toggleMobileMenu}>Início</a></li>
-                            <li><a href="#servicos" onClick={toggleMobileMenu}>Serviços</a></li>
-                            <li><a href="#suporte" onClick={toggleMobileMenu}>Suporte</a></li>
-                            <li><a href="#sobre" onClick={toggleMobileMenu}>Sobre nós</a></li>
-                            <li><a href="#cadastro" onClick={toggleMobileMenu}>Cadastro</a></li>
-                            <li>
-                                <a href="https://wa.me/5511921668441?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20Overclick" 
-                                   className="cta-button mobile-cta" 
-                                   target="_blank" 
-                                   rel="noopener noreferrer"
-                                   onClick={toggleMobileMenu}>
-                                    Falar com especialistas
-                                </a>
-                            </li>
-                        </ul>
+                </div>
+                
+                <form id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="nome">
+                            <i class="fas fa-user"></i>
+                            Nome completo *
+                        </label>
+                        <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                        <span class="error-message" data-field="nome"></span>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="email">
+                            <i class="fas fa-envelope"></i>
+                            E-mail *
+                        </label>
+                        <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                        <span class="error-message" data-field="email"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="telefone">
+                            <i class="fab fa-whatsapp"></i>
+                            WhatsApp *
+                        </label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required>
+                        <span class="error-message" data-field="telefone"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="empresa">
+                            <i class="fas fa-building"></i>
+                            Nome da Empresa *
+                        </label>
+                        <input type="text" id="empresa" name="empresa" placeholder="Nome da sua empresa" required>
+                        <span class="error-message" data-field="empresa"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cargo">
+                            <i class="fas fa-briefcase"></i>
+                            Cargo *
+                        </label>
+                        <input type="text" id="cargo" name="cargo" placeholder="Ex: Gerente, Sócio, Diretor" required>
+                        <span class="error-message" data-field="cargo"></span>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block btn-submit">
+                        <span class="btn-text">Ativar Automação Agora</span>
+                        <span class="btn-loading" style="display: none;">
+                            <i class="fas fa-spinner fa-spin"></i> Processando...
+                        </span>
+                    </button>
+                    
+                    <div id="globalMessage" class="global-message"></div>
+                </form>
+            </div>
+        </div>
+    </section>
 
-                    <section className="hero" id="inicio">
-                        <div className="container">
-                            <div className="hero-content">
-                                <h1>Perdendo vendas por não atender na hora certa?</h1>
-                                <p>Transforme seu atendimento em um serviço que nunca para, pronto pra vender a qualquer momento.</p>
-                                <a href="https://wa.me/5511921668441?text=Olá,%20gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20da%20OverClick" 
-                                   className="cta-button" 
-                                   target="_blank" 
-                                   rel="noopener noreferrer">Entre em contato conosco!</a>
-                            </div>
-                            
-                            <ChatSimulation />
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <span class="section-tag">Quem Somos</span>
+                    <h2 class="section-title">Especialistas em <span class="gradient-text">Automação com IA</span></h2>
+                    <p>
+                        A OverClick nasceu com a missão de democratizar o acesso à inteligência artificial 
+                        para pequenas e médias empresas. Hoje, somos referência em automação de atendimento 
+                        via WhatsApp, ajudando mais de 500 empresas a venderem 24 horas por dia.
+                    </p>
+                    <p>
+                        Nossa tecnologia combina NLP (Processamento de Linguagem Natural) de última geração 
+                        com estratégias testadas de vendas para entregar resultados reais.
+                    </p>
+                    
+                    <div class="about-founder">
+                        <div class="founder-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"Acreditamos que tecnologia deve servir para fazer seu negócio crescer, 
+                            não para complicar. Por isso criamos uma solução simples, poderosa e que realmente funciona."</p>
+                            <span class="founder-name">— Equipe OverClick</span>
                         </div>
-                    </section>
-
-                    <section className="problem-section" id="servicos">
-                        <div className="container">
-                            <div className="section-title">
-                                <h2>Isso acontece? Então a IA é pra você!</h2>
-                                <p>Na Overclick, entendemos que atender clientes vai muito além de apenas responder mensagens. É sobre ter estratégias de venda, suporte e tecnologia que realmente funcionam para efetuar vendas.</p>
-                            </div>
-                            
-                            <div className="problem-cards">
-                                <div className="problem-card" style={{animationDelay: "0.2s"}}>
-                                    <h3>Perde vendas fora do horário comercial?</h3>
-                                    <p>A chance do cliente desistir ou procurar o concorrente aumenta porque está limitado pelo horário.</p>
-                                </div>
-                                
-                                <div className="problem-card" style={{animationDelay: "0.4s"}}>
-                                    <h3>Precisa de mais gente, mas não tem orçamento?</h3>
-                                    <p>Uma automação bem feita economiza até 80% comparado a um funcionário, além de atender 24h por dia.</p>
-                                </div>
-                                
-                                <div className="problem-card" style={{animationDelay: "0.6s"}}>
-                                    <h3>Atendimento aparenta "menos" profissional?</h3>
-                                    <p>Se sua empresa não atende bem e/ou atrasa agendamento, o cliente imagina que o resto também falha.</p>
-                                </div>
-                            </div>
+                    </div>
+                </div>
+                
+                <div class="about-stats">
+                    <div class="stat-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" class="stat-circle-bg"/>
+                            <circle cx="50" cy="50" r="45" class="stat-circle-fill" style="stroke-dasharray: 283; stroke-dashoffset: 57;"/>
+                        </svg>
+                        <div class="stat-circle-content">
+                            <span class="stat-value">80%</span>
+                            <span class="stat-label">economia média</span>
                         </div>
-                    </section>
-
-                    <section className="solution-section">
-                        <div className="container">
-                            <div className="section-title">
-                                <h2>De as boas-vindas ao verdadeiro atendimento!</h2>
-                            </div>
-                            
-                            <div className="solution-grid">
-                                <div className="solution-card" style={{animationDelay: "0.2s"}}>
-                                    <div className="solution-icon">
-                                        <i className="fas fa-bolt"></i>
-                                    </div>
-                                    <h3>Atendimento rápido</h3>
-                                    <p>O Agente responde mesmo fora do horário comercial, sem dias e horários de descanso.</p>
-                                </div>
-                                
-                                <div className="solution-card" style={{animationDelay: "0.4s"}}>
-                                    <div className="solution-icon">
-                                        <i className="fas fa-chart-line"></i>
-                                    </div>
-                                    <h3>Redução de custos</h3>
-                                    <p>Gaste até 80% menos que com um funcionário CLT.</p>
-                                </div>
-                                
-                                <div className="solution-card" style={{animationDelay: "0.6s"}}>
-                                    <div className="solution-icon">
-                                        <i className="fas fa-comments"></i>
-                                    </div>
-                                    <h3>Respostas naturais</h3>
-                                    <p>Nada de mensagens robóticas. É um atendimento humanizado de verdade.</p>
-                                </div>
-                            </div>
+                    </div>
+                    <div class="stat-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" class="stat-circle-bg"/>
+                            <circle cx="50" cy="50" r="45" class="stat-circle-fill" style="stroke-dasharray: 283; stroke-dashoffset: 113;"/>
+                        </svg>
+                        <div class="stat-circle-content">
+                            <span class="stat-value">60%</span>
+                            <span class="stat-label">mais conversões</span>
                         </div>
-                    </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <section className="demo-section">
-                        <div className="container">
-                            <div className="demo-container">
-                                <div className="demo-text">
-                                    <h2>Seu cliente atendido em segundos</h2>
-                                    
-                                    <ul>
-                                        <li style={{animationDelay: "0.2s"}}>
-                                            <i className="fas fa-check-circle"></i>
-                                            <strong>Linguagem natural</strong>
-                                            <p>Conversa fluida e humanizada.</p>
-                                        </li>
-                                        
-                                        <li style={{animationDelay: "0.4s"}}>
-                                            <i className="fas fa-check-circle"></i>
-                                            <strong>Disponível 24 horas por dia</strong>
-                                            <p>Efetue vendas fora do horário comercial.</p>
-                                        </li>
-                                        
-                                        <li style={{animationDelay: "0.6s"}}>
-                                            <i className="fas fa-check-circle"></i>
-                                            <strong>Diálogos exclusivos e personalizados</strong>
-                                            <p>Cada cliente recebe atendimento único.</p>
-                                        </li>
-                                        
-                                        <li style={{animationDelay: "0.8s"}}>
-                                            <i className="fas fa-check-circle"></i>
-                                            <strong>Estoques atualizados automaticamente</strong>
-                                            <p>Organização perfeita sem esforço.</p>
-                                        </li>
-                                    </ul>
-                                    
-                                    <p><strong>Empresas que automatizam o atendimento aumentam vendas em até 40%.</strong></p>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
+    <section class="cta-final">
+        <div class="container">
+            <div class="cta-final-content">
+                <h2>O mercado não espera. <span class="gradient-text">Seu cliente também não.</span></h2>
+                <p>Comece agora mesmo. Ativação instantânea.</p>
+                <a href="#form-section" class="btn btn-primary btn-large">
+                    <i class="fas fa-arrow-right"></i>
+                    Quero Aumentar Minhas Vendas
+                </a>
+                <div class="cta-note">
+                    <i class="fas fa-bolt"></i>
+                    Ativação instantânea · Sem fila de espera
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <section className="problem-section" id="cadastro">
-                        <div className="container">
-                            <div className="section-title">
-                                <h2>Automatize de uma vez!</h2>
-                                <p>Preencha as informações abaixo para que possamos entrar em contato.</p>
-                            </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#hero" class="logo">
+                        <span class="logo-mark">O</span>
+                        <span class="logo-text">verClick</span>
+                    </a>
+                    <p>Automação de atendimento via IA para empresas que querem vender mais.</p>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Navegação</h4>
+                    <ul>
+                        <li><a href="#hero">Início</a></li>
+                        <li><a href="#problem">Problema</a></li>
+                        <li><a href="#solution">Solução</a></li>
+                        <li><a href="#benefits">Benefícios</a></li>
+                        <li><a href="#demo">Demonstração</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Serviços</h4>
+                    <ul>
+                        <li><a href="#">Chatbot WhatsApp</a></li>
+                        <li><a href="#">Automação de Vendas</a></li>
+                        <li><a href="#">Suporte 24/7</a></li>
+                        <li><a href="#">IA Personalizada</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> contato@overclick.com</li>
+                        <li><i class="fab fa-whatsapp"></i> (11) 92166-8441</li>
+                        <li><i class="fas fa-bolt"></i> Ativação instantânea</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 OverClick. Todos os direitos reservados.</p>
+                <div class="footer-legal">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-                            <CadastroForm />
-                        </div>
-                    </section>
-
-                    <section className="cta-section" id="contato">
-                        <div className="container">
-                            <h2>Pronto para transformar seu atendimento?</h2>
-                            <p>Nossa equipe está pronta para te mostrar como a Overclick pode impulsionar suas vendas e melhorar a experiência dos seus clientes.</p>
-                            <a href="https://wa.me/5511921668441?text=Olá,%20gostaria%20de%20garantir%20minha%20vaga%20na%20Overclick" 
-                               className="cta-button light" 
-                               target="_blank" 
-                               rel="noopener noreferrer">Quero garantir minha vaga</a>
-                        </div>
-                    </section>
-
-                    <section className="problem-section" id="sobre">
-                        <div className="container">
-                            <div className="section-title">
-                                <h2>Sobre nós</h2>
-                                <p>Somos especialistas em atendimento utilizando agentes de IA. Na Overclick, ajudamos empresas a escalarem seu suporte e vendas com soluções modernas, inteligentes e humanizadas.</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    <footer>
-                        <div className="container">
-                            <div className="footer-content">
-                                <div className="footer-column">
-                                    <h3>Overclick</h3>
-                                    <p>Soluções de atendimento automatizado com IA para impulsionar suas vendas 24 horas por dia.</p>
-                                    <div className="social-links">
-                                        <a href="#"><i className="fab fa-facebook-f"></i></a>
-                                        <a href="#"><i className="fab fa-instagram"></i></a>
-                                        <a href="#"><i className="fab fa-linkedin-in"></i></a>
-                                        <a href="https://wa.me/5511921668441" target="_blank" rel="noopener noreferrer"><i className="fab fa-whatsapp"></i></a>
-                                    </div>
-                                </div>
-                                
-                                <div className="footer-column">
-                                    <h3>Links</h3>
-                                    <ul className="footer-links">
-                                        <li><a href="#inicio">Início</a></li>
-                                        <li><a href="#servicos">Serviços</a></li>
-                                        <li><a href="#suporte">Suporte</a></li>
-                                        <li><a href="#sobre">Sobre nós</a></li>
-                                        <li><a href="#cadastro">Cadastro</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <div className="footer-column">
-                                    <h3>Serviços</h3>
-                                    <ul className="footer-links">
-                                        <li><a href="#">Atendimento 24/7</a></li>
-                                        <li><a href="#">Chatbot Inteligente</a></li>
-                                        <li><a href="#">Agendamento Automático</a></li>
-                                        <li><a href="#">Análise de Conversas</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <div className="footer-column">
-                                    <h3>Contato</h3>
-                                    <ul className="footer-links">
-                                        <li><a href="mailto:contato@overclick.com">contato@overclick.com</a></li>
-                                        <li><a href="tel:+5511921668441">(11) 92166-8441</a></li>
-                                        <li><a href="https://wa.me/5511921668441" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
-                                        <li><a href="https://wa.me/5511921668441?text=Olá,%20gostaria%20de%20agendar%20uma%20demonstração" target="_blank" rel="noopener noreferrer">Agende uma demonstração</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            
-                            <div className="footer-bottom">
-                                <p>&copy; 2025 Overclick. Todos os direitos reservados.</p>
-                            </div>
-                        </div>
-                    </footer>
-                </>
-            );
-        };
-
-        // Renderizar a aplicação
-        ReactDOM.render(<App />, document.getElementById('root'));
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
