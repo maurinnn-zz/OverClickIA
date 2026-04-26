@@ -299,9 +299,23 @@ class FormHandler {
         const data = {};
 
         this.fields.forEach(({ id }) => {
-            const input = document.getElementById(id);
-            if (input) data[id] = input.value.trim();
-        });
+             const input = document.getElementById(id);
+             if (!input) return;
+         
+             let value = input.value.trim();
+         
+             // 🔥 tratamento especial para telefone
+             if (id === 'telefone') {
+                 value = value.replace(/\D/g, ''); // só números
+         
+                 // adiciona DDI se não tiver
+                 if (!value.startsWith('55')) {
+                     value = '55' + value;
+                 }
+             }
+         
+             data[id] = value;
+         });
 
         // Campo opcional
         const interesse = document.getElementById('interesse');
